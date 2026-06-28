@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>大鲤鱼超级工作站 · 运营仪表盘</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Noto+Serif+SC:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg-deep: #080c18;
+  --bg-card: rgba(12, 20, 36, 0.82);
+  --bg-card-hover: rgba(18, 28, 48, 0.88);
+  --bg-subtle: rgba(255,255,255,0.03);
+  --border: rgba(125, 211, 200, 0.10);
+  --border-active: rgba(125, 211, 200, 0.30);
+  --cyan: #7dd3c8;
+  --cyan-dim: rgba(125, 211, 200, 0.08);
+  --gold: #d4af6a;
+  --gold-dim: rgba(212, 175, 106, 0.10);
+  --coral: #e07a5f;
+  --amber: #f2a65a;
+  --green: #5bbc7c;
+  --blue: #6ba4e8;
+  --purple: #9b87f5;
+  --text: #eef2f8;
+  --text-secondary: #94a3b8;
+  --text-tertiary: #5a6a80;
+  --radius: 10px;
+  --radius-sm: 6px;
+  --shadow: 0 8px 40px rgba(0,0,0,0.5);
+  --gradient-cyan: linear-gradient(135deg, var(--cyan), #5bbfb0);
+  --gradient-gold: linear-gradient(135deg, var(--gold), var(--amber));
+  --gradient-purple: linear-gradient(135deg, var(--cyan), var(--purple));
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Inter', -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  background: var(--bg-deep);
+  color: var(--text);
+  background-image:
+    radial-gradient(ellipse at 15% 10%, rgba(125,211,200,0.04) 0%, transparent 40%),
+    radial-gradient(ellipse at 85% 90%, rgba(155,135,245,0.03) 0%, transparent 40%);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  padding: 24px;
+}
+.dash { max-width: 1280px; margin: 0 auto; display: flex; flex-direction: column; gap: 18px; }
+
+/* ── Header ── */
+.header {
+  display: flex; justify-content: space-between; align-items: flex-end;
+  padding: 8px 4px 12px;
+  border-bottom: 1px solid var(--border);
+  flex-wrap: wrap; gap: 12px;
+}
+.header-left { display: flex; align-items: center; gap: 14px; }
+.header-left .logo {
+  width: 40px; height: 40px;
+  border-radius: 10px;
+  background: var(--gradient-cyan);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px;
+}
+.header-left h1 {
+  font-family: 'Noto Serif SC', serif;
+  font-size: 20px; font-weight: 700;
+}
+.header-left .gen {
+  font-size: 11px; padding: 2px 10px;
+  background: var(--cyan-dim); color: var(--cyan);
+  border: 1px solid var(--border-active);
+  border-radius: 100px;
+  font-weight: 600; letter-spacing: 1px;
+}
+.header-right { display: flex; align-items: center; gap: 16px; }
+.header-right .stat-item { text-align: right; }
+.header-right .stat-item .num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 18px; font-weight: 600;
+}
+.header-right .stat-item .label { font-size: 11px; color: var(--text-tertiary); }
+.header-right .stat-divider { width: 1px; height: 32px; background: var(--border); }
+
+/* ── Dashboard Grid ── */
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 18px;
+}
+@media (max-width: 1100px) { .grid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 640px) { .grid { grid-template-columns: 1fr; } }
+
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  transition: 0.25s ease;
+  backdrop-filter: blur(4px);
+}
+.card:hover { border-color: var(--border-active); }
+.card-header {
+  display: flex; align-items: center; gap: 10px;
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--border);
+  font-size: 14px; font-weight: 600;
+}
+.card-header .ic { font-size: 16px; }
+.card-header .badge {
+  margin-left: auto;
+  font-size: 10px; font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 4px;
+  letter-spacing: 0.5px;
+}
+.card-body { padding: 16px 18px 18px; }
+
+/* ── KPI Cards ── */
+.kpi-row { display: flex; gap: 12px; flex-wrap: wrap; }
+.kpi-card {
+  flex: 1; min-width: 110px;
+  background: var(--bg-subtle);
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  padding: 12px 14px;
+  text-align: center;
+  transition: 0.25s;
+}
+.kpi-card:hover { border-color: var(--border); }
+.kpi-card .kpi-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 24px; font-weight: 700;
+}
+.kpi-card .kpi-label { font-size: 11px; color: var(--text-tertiary); margin-top: 2px; }
+.kpi-card .kpi-unit { font-size: 12px; color: var(--text-secondary); }
+.kpi-cyan .kpi-num { color: var(--cyan); }
+.kpi-gold .kpi-num { color: var(--gold); }
+.kpi-coral .kpi-num { color: var(--coral); }
+.kpi-green .kpi-num { color: var(--green); }
+.kpi-blue .kpi-num { color: var(--blue); }
+.kpi-purple .kpi-num { color: var(--purple); }
+
+/* ── Flow Pipeline ── */
+.flow-row {
+  display: flex; align-items: flex-start; gap: 8px;
+  margin: 12px 0;
+}
+.flow-step {
+  flex: 1;
+  background: var(--bg-subtle);
+  border-radius: var(--radius-sm);
+  padding: 14px 12px;
+  text-align: center;
+  transition: 0.25s;
+  position: relative;
+}
+.flow-step:hover { background: var(--cyan-dim); }
+.flow-step .step-n {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px; font-weight: 600;
+  color: var(--cyan);
+  margin-bottom: 4px;
+}
+.flow-step .step-name {
+  font-size: 13px; font-weight: 600;
+  margin-bottom: 3px;
+}
+.flow-step .step-desc {
+  font-size: 11px; color: var(--text-tertiary);
+  line-height: 1.5;
+}
+.flow-arrow {
+  flex-shrink: 0;
+  padding-top: 20px;
+  color: var(--text-tertiary);
+  font-size: 14px;
+}
+
+@media (max-width: 640px) {
+  .flow-row { flex-direction: column; }
+  .flow-arrow { transform: rotate(90deg); padding: 4px 0; text-align: center; }
+}
+
+/* ── Two-column layout ── */
+.cols-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+@media (max-width: 640px) { .cols-2 { grid-template-columns: 1fr; } }
+
+/* ── Item list ── */
+.item-list { list-style: none; padding: 0; }
+.item-list li {
+  display: flex; align-items: flex-start; gap: 10px;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.03);
+  font-size: 13px; color: var(--text-secondary);
+  line-height: 1.5;
+}
+.item-list li:last-child { border-bottom: none; }
+.item-list li .dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  flex-shrink: 0; margin-top: 6px;
+}
+.item-list li .highlight { color: var(--text); font-weight: 500; }
+.item-list li .tag-sm {
+  margin-left: auto; flex-shrink: 0;
+  font-size: 10px; padding: 1px 8px;
+  border-radius: 3px;
+  background: var(--cyan-dim); color: var(--cyan);
+}
+
+/* ── Cross-link arrows ── */
+.link-row {
+  display: flex; align-items: center; gap: 12px;
+  padding: 10px 0;
+  font-size: 13px;
+  color: var(--text-tertiary);
+}
+.link-row .arrow { color: var(--gold); font-weight: 700; }
+
+/* ── Team grid ── */
+.team-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+@media (max-width: 480px) { .team-grid { grid-template-columns: 1fr; } }
+.team-card {
+  background: var(--bg-subtle);
+  border-radius: var(--radius-sm);
+  padding: 14px;
+  transition: 0.25s;
+}
+.team-card:hover { background: var(--bg-card-hover); }
+.team-card .role {
+  font-size: 14px; font-weight: 600; margin-bottom: 4px;
+}
+.team-card .role .role-badge {
+  display: inline-block;
+  font-size: 10px; padding: 1px 8px; border-radius: 3px;
+  margin-left: 8px; font-weight: 600;
+}
+.team-card .desc { font-size: 12px; color: var(--text-tertiary); line-height: 1.6; }
+.team-card .skills {
+  display: flex; gap: 4px; flex-wrap: wrap; margin-top: 8px;
+}
+.team-card .skills .sk {
+  font-size: 10px; padding: 2px 8px;
+  background: var(--cyan-dim); color: var(--cyan);
+  border-radius: 3px;
+}
+
+/* ── Hardware specs ── */
+.spec-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.spec-table td {
+  padding: 8px 6px;
+  border-bottom: 1px solid rgba(255,255,255,0.03);
+  color: var(--text-secondary);
+}
+.spec-table td:first-child { color: var(--text); font-weight: 500; width: 80px; }
+.spec-table tr:last-child td { border-bottom: none; }
+
+/* ── Agent grid ── */
+.agent-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+.agent-tag {
+  padding: 6px 10px;
+  background: var(--bg-subtle);
+  border-radius: 4px;
+  font-size: 12px;
+  color: var(--text-secondary);
+  display: flex; align-items: center; gap: 6px;
+  transition: 0.2s;
+}
+.agent-tag:hover { background: var(--cyan-dim); color: var(--cyan); }
+.agent-tag .dot-sm { width: 4px; height: 4px; border-radius: 50%; flex-shrink: 0; }
+
+/* ── Process Map for 建站→运营 ── */
+.process-row {
+  display: flex; gap: 6px; margin: 8px 0;
+}
+.process-block {
+  flex: 1;
+  border-radius: var(--radius-sm);
+  padding: 16px 12px;
+  text-align: center;
+}
+.process-block.pb-cyan { background: var(--cyan-dim); border: 1px solid rgba(125,211,200,0.15); }
+.process-block.pb-gold { background: var(--gold-dim); border: 1px solid rgba(212,175,106,0.15); }
+.process-block .pb-emoji { font-size: 22px; margin-bottom: 6px; }
+.process-block .pb-title { font-size: 14px; font-weight: 600; margin-bottom: 3px; }
+.process-block .pb-days { font-size: 11px; color: var(--text-tertiary); }
+.process-block .pb-items {
+  margin-top: 10px; text-align: left;
+  font-size: 12px; color: var(--text-secondary);
+  line-height: 1.7;
+}
+.process-block .pb-items .pb-item { padding: 2px 0; display: flex; gap: 6px; align-items: flex-start; }
+.process-block .pb-items .pb-item .pb-c { flex-shrink: 0; font-weight: 700; }
+.pb-divider {
+  display: flex; align-items: center;
+  font-size: 18px; color: var(--text-tertiary);
+}
+
+/* ── Section link ── */
+.section-link {
+  font-size: 10px; color: var(--text-tertiary);
+  text-align: center; padding: 8px 0 2px;
+  letter-spacing: 0.5px;
+  border-top: 1px solid var(--border);
+  margin-top: 8px;
+}
+
+/* ── Full-width special ── */
+.span-full { grid-column: 1 / -1; }
+@media (max-width: 1100px) { .span-full { grid-column: auto; } }
+
+/* ── Framework diagram ── */
+.framework-diagram {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 10px;
+  margin: 10px 0;
+}
+@media (max-width: 640px) { .framework-diagram { grid-template-columns: 1fr; } }
+
+.fx-axis {
+  background: var(--bg-subtle);
+  border-radius: var(--radius-sm);
+  padding: 14px;
+}
+.fx-axis .fx-label {
+  font-size: 14px; font-weight: 600; margin-bottom: 8px;
+  display: flex; align-items: center; gap: 8px;
+}
+.fx-axis .fx-items { list-style: none; padding: 0; }
+.fx-axis .fx-items li {
+  font-size: 12px; color: var(--text-secondary);
+  padding: 4px 0 4px 14px;
+  position: relative;
+  line-height: 1.5;
+}
+.fx-axis .fx-items li::before {
+  content: '–'; position: absolute; left: 0;
+  color: var(--cyan);
+}
+.fx-axis .fx-bottom {
+  margin-top: 8px; padding-top: 8px;
+  border-top: 1px solid var(--border);
+  font-size: 11px; color: var(--text-tertiary);
+}
+
+/* ── Divider label ── */
+.divider-label {
+  display: flex; align-items: center; gap: 10px;
+  font-size: 12px; color: var(--text-tertiary);
+  padding: 4px 0;
+}
+.divider-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+</style>
+</head>
+<body>
+<div class="dash">
+
+<!-- ═══════ HEADER ═══════ -->
+<div class="header">
+  <div class="header-left">
+    <div class="logo">🐟</div>
+    <h1>大鲤鱼超级工作站 · 运营仪表盘</h1>
+    <span class="gen">跃水 Gen 2</span>
+  </div>
+  <div class="header-right">
+    <div class="stat-item">
+      <div class="num" style="color:var(--cyan);">4</div>
+      <div class="label">算力节点</div>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat-item">
+      <div class="num" style="color:var(--gold);">22+</div>
+      <div class="label">智能体</div>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat-item">
+      <div class="num" style="color:var(--coral);">3</div>
+      <div class="label">交付档位</div>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat-item">
+      <div class="num" style="color:var(--purple);">73</div>
+      <div class="label">实战项目</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════ ROW 1: KPI DASHBOARD ═══════ -->
+<div class="grid">
+  <div class="card span-full">
+    <div class="card-header">
+      <span class="ic">📊</span> 业务仪表盘 · 关键指标
+      <span class="badge" style="background:var(--cyan-dim);color:var(--cyan);">月度追踪</span>
+    </div>
+    <div class="card-body">
+      <div class="kpi-row">
+        <div class="kpi-card kpi-cyan">
+          <div class="kpi-num" id="kpi-active-clients">3-5</div>
+          <div class="kpi-label">在服客户 <span class="kpi-unit">家</span></div>
+        </div>
+        <div class="kpi-card kpi-gold">
+          <div class="kpi-num" id="kpi-monthly-rev">80-150</div>
+          <div class="kpi-label">月交付收入 <span class="kpi-unit">K</span></div>
+        </div>
+        <div class="kpi-card kpi-coral">
+          <div class="kpi-num" id="kpi-weekly-deliver">30-60</div>
+          <div class="kpi-label">周交付批次 <span class="kpi-unit">件</span></div>
+        </div>
+        <div class="kpi-card kpi-green">
+          <div class="kpi-num" id="kpi-nps">85<span style="font-size:14px;">%</span></div>
+          <div class="kpi-label">客户满意度</div>
+        </div>
+        <div class="kpi-card kpi-blue">
+          <div class="kpi-num" id="kpi-conversion">15-20</div>
+          <div class="kpi-label">获客转化率 <span class="kpi-unit">%</span></div>
+        </div>
+        <div class="kpi-card kpi-purple">
+          <div class="kpi-num" id="kpi-utilization">60-80</div>
+          <div class="kpi-label">算力利用率 <span class="kpi-unit">%</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════ ROW 2: HARDWARE + SOFTWARE ═══════ -->
+<div class="grid">
+  <!-- Hardware -->
+  <div class="card">
+    <div class="card-header">
+      <span class="ic">🖥️</span> 硬件 · 算力底座
+      <span class="badge" style="background:var(--gold-dim);color:var(--gold);">4节点</span>
+    </div>
+    <div class="card-body">
+      <table class="spec-table">
+        <tr><td>主机 A</td><td>基地 · 主力生产节点</td><td style="text-align:right;color:var(--cyan);font-weight:600;">AI 推理</td></tr>
+        <tr><td>主机 B</td><td>基地 · 分布式算力</td><td style="text-align:right;color:var(--gold);font-weight:600;">知识库</td></tr>
+        <tr><td>主机 C</td><td>前台 · 客户展示/直播</td><td style="text-align:right;color:var(--coral);font-weight:600;">互动</td></tr>
+        <tr><td>主机 D</td><td>Mac · 设计+视频产出</td><td style="text-align:right;color:var(--purple);font-weight:600;">创作</td></tr>
+      </table>
+      <div style="margin-top:10px;">
+        <div class="divider-label">外设</div>
+        <div class="item-list">
+          <li><span class="dot" style="background:var(--amber);"></span> 直播间 · 推流设备 + 灯光 + 提词器</li>
+          <li><span class="dot" style="background:var(--blue);"></span> 移动端 · 手机 / 平板 (远程监控+轻量任务)</li>
+          <li><span class="dot" style="background:var(--green);"></span> 云主机 · 弹性扩展节点 (按需调度)</li>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Software -->
+  <div class="card">
+    <div class="card-header">
+      <span class="ic">🧩</span> 软件 · 智能体平台
+      <span class="badge" style="background:var(--purple-dim, rgba(155,135,245,0.1));color:var(--purple);">三层架构</span>
+    </div>
+    <div class="card-body">
+      <div class="item-list">
+        <li><span class="dot" style="background:var(--cyan);"></span> <span class="highlight">Harness算力治理</span> — 成本调度 + 数据脱敏 + 模型路由</li>
+        <li><span class="dot" style="background:var(--gold);"></span> <span class="highlight">智能体技能开发</span> — Prompt工程 / 工作流编排 / 工具调用</li>
+        <li><span class="dot" style="background:var(--coral);"></span> <span class="highlight">数字员工部署</span> — 方案师 / 内容运营 / 销转 / 分析 / 质检</li>
+        <li><span class="dot" style="background:var(--green);"></span> <span class="highlight">业务工作流编排</span> — 周批次管线 / 交付SOP / 质检关卡</li>
+        <li><span class="dot" style="background:var(--purple);"></span> <span class="highlight">知识库 + RAG</span> — 客户资产库 / 品牌语料 / 行业知识</li>
+        <li><span class="dot" style="background:var(--amber);"></span> <span class="highlight">经营中台系统</span> — CRM / 前测 / 项目 / 商店 / 财务</li>
+      </div>
+    </div>
+  </div>
+
+  <!-- Agents Quick View -->
+  <div class="card">
+    <div class="card-header">
+      <span class="ic">🤖</span> 智能体矩阵
+      <span class="badge" style="background:var(--cyan-dim);color:var(--cyan);">22+ 款</span>
+    </div>
+    <div class="card-body">
+      <div style="font-size:11px;color:var(--text-tertiary);margin-bottom:6px;">三层结构：持续运行 → 按周调度 → 按需启用</div>
+      <div class="agent-grid">
+        <div class="agent-tag"><span class="dot-sm" style="background:var(--cyan);"></span> 选题规划</div>
+        <div class="agent-tag"><span class="dot-sm" style="background:var(--cyan);"></span> 公众号写作</div>
+        <div class="agent-tag"><span class="dot-sm" style="background:var(--cyan);"></span> 小红书排版</div>
+        <div class="agent-tag"><span class="dot-sm" style="background:var(--cyan);"></span> 私域运营</div>
+        <div class="agent-tag"><span class="dot-sm" style="background:var(--gold);"></span> 品牌定位</div>
+        <div class="agent-tag"><span class="dot-sm" style="background:var(--gold);"></span> 数据诊断</div>
+        <div class="agent-tag"><span class="dot-sm" style="background:var(--gold);"></span> 竞品监测</div>
+        <div class="agent-tag"><span class="dot-sm" style="background:var(--gold);"></span> 舆情扫描</div>
+        <div class="agent-tag"><span class="dot-sm" style="background:var(--coral);"></span> 方案设计</div>
+        <div class="agent-tag"><span class="dot-sm" style="background:var(--coral);"></span> IP孵化</div>
+        <div class="agent-tag"><span class="dot-sm" style="background:var(--coral);"></span> 质量校验</div>
+        <div class="agent-tag"><span class="dot-sm" style="background:var(--purple);"></span> 交付调度</div>
+      </div>
+      <div style="margin-top:10px;font-size:11px;color:var(--text-tertiary);">
+        <span style="background:var(--cyan-dim);color:var(--cyan);padding:1px 6px;border-radius:3px;">● 常驻</span>
+        <span style="background:var(--gold-dim);color:var(--gold);padding:1px 6px;border-radius:3px;margin-left:4px;">● 周期</span>
+        <span style="background:rgba(224,122,95,0.1);color:var(--coral);padding:1px 6px;border-radius:3px;margin-left:4px;">● 专项</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Team -->
+  <div class="card">
+    <div class="card-header">
+      <span class="ic">👥</span> 团队 · 交付组合
+      <span class="badge" style="background:var(--gold-dim);color:var(--gold);">FDE + OPC</span>
+    </div>
+    <div class="card-body">
+      <div class="team-grid">
+        <div class="team-card">
+          <div class="role">FDE 驻场工程师 <span class="role-badge" style="background:var(--cyan-dim);color:var(--cyan);">全职</span></div>
+          <div class="desc">工作站日常运转 · 智能体调用 · 质量审核 · 客户交付对接</div>
+          <div class="skills">
+            <span class="sk">智能体操作</span>
+            <span class="sk">质量把控</span>
+            <span class="sk">客户沟通</span>
+            <span class="sk">排期管理</span>
+          </div>
+        </div>
+        <div class="team-card">
+          <div class="role">OPC 智能体编排师 <span class="role-badge" style="background:var(--gold-dim);color:var(--gold);">社区供应</span></div>
+          <div class="desc">工作流编排 · 智能体训练 · 技能开发 · 边缘案例处理</div>
+          <div class="skills">
+            <span class="sk">Prompt工程</span>
+            <span class="sk">工作流编排</span>
+            <span class="sk">RAG搭建</span>
+            <span class="sk">工具开发</span>
+          </div>
+        </div>
+        <div class="team-card">
+          <div class="role">OPC 方案师 <span class="role-badge" style="background:var(--coral-dim, rgba(224,122,95,0.1));color:var(--coral);">社区供应</span></div>
+          <div class="desc">品牌/获客/产品策略设计 · 月度复盘 · 档位建议</div>
+          <div class="skills">
+            <span class="sk">品牌策略</span>
+            <span class="sk">获客诊断</span>
+            <span class="sk">产品化设计</span>
+            <span class="sk">行业分析</span>
+          </div>
+        </div>
+        <div class="team-card">
+          <div class="role">项目经理 <span class="role-badge" style="background:var(--purple-dim, rgba(155,135,245,0.1));color:var(--purple);">基地中台</span></div>
+          <div class="desc">需求衔接 · 排期协调 · 验收确认 · 回款 · 升级处理</div>
+          <div class="skills">
+            <span class="sk">客户管理</span>
+            <span class="sk">进度追踪</span>
+            <span class="sk">风险控制</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════ ROW 3: 建站→运营 流程 ═══════ -->
+<div class="grid">
+  <div class="card span-full">
+    <div class="card-header">
+      <span class="ic">🏗️</span> 建站 → 运营 全流程
+      <span class="badge" style="background:var(--gold-dim);color:var(--gold);">第0天 → 持续运营</span>
+    </div>
+    <div class="card-body">
+      <div class="process-row">
+        <div class="process-block pb-cyan">
+          <div class="pb-emoji">🔍</div>
+          <div class="pb-title">前测诊断</div>
+          <div class="pb-days">第0天 · 1-2天</div>
+          <div class="pb-items">
+            <div class="pb-item"><span class="pb-c" style="color:var(--cyan);">→</span> DLY-6C 三轴体检</div>
+            <div class="pb-item"><span class="pb-c" style="color:var(--cyan);">→</span> 品牌/获客/产品 三维评分</div>
+            <div class="pb-item"><span class="pb-c" style="color:var(--cyan);">→</span> 档位推荐 + 报价建议</div>
+          </div>
+        </div>
+
+        <div class="pb-divider">›</div>
+
+        <div class="process-block pb-gold">
+          <div class="pb-emoji">🤝</div>
+          <div class="pb-title">方案签约</div>
+          <div class="pb-days">第3天 · 1次会面</div>
+          <div class="pb-items">
+            <div class="pb-item"><span class="pb-c" style="color:var(--gold);">→</span> 交付方案书确认</div>
+            <div class="pb-item"><span class="pb-c" style="color:var(--gold);">→</span> 档位 + 月度排期签定</div>
+            <div class="pb-item"><span class="pb-c" style="color:var(--gold);">→</span> 首月付款</div>
+          </div>
+        </div>
+
+        <div class="pb-divider">›</div>
+
+        <div class="process-block pb-cyan">
+          <div class="pb-emoji">⚡</div>
+          <div class="pb-title">入驻建站</div>
+          <div class="pb-days">第3-7天 · 3-5天</div>
+          <div class="pb-items">
+            <div class="pb-item"><span class="pb-c" style="color:var(--cyan);">→</span> 分配算力+主机资源</div>
+            <div class="pb-item"><span class="pb-c" style="color:var(--cyan);">→</span> 部署智能体矩阵</div>
+            <div class="pb-item"><span class="pb-c" style="color:var(--cyan);">→</span> 建客户资产库+KPI看板</div>
+            <div class="pb-item"><span class="pb-c" style="color:var(--cyan);">→</span> 首次选型会</div>
+          </div>
+        </div>
+
+        <div class="pb-divider">›</div>
+
+        <div class="process-block pb-gold">
+          <div class="pb-emoji">🔄</div>
+          <div class="pb-title">持续运营</div>
+          <div class="pb-days">第2周起 · 每周批次</div>
+          <div class="pb-items">
+            <div class="pb-item"><span class="pb-c" style="color:var(--gold);">→</span> 周一批·选题+策略</div>
+            <div class="pb-item"><span class="pb-c" style="color:var(--gold);">→</span> 周二三·智能体生产+人工审</div>
+            <div class="pb-item"><span class="pb-c" style="color:var(--gold);">→</span> 周四·交付给客户</div>
+            <div class="pb-item"><span class="pb-c" style="color:var(--gold);">→</span> 周五·复盘+下周排期</div>
+          </div>
+        </div>
+
+        <div class="pb-divider">›</div>
+
+        <div class="process-block pb-cyan">
+          <div class="pb-emoji">📈</div>
+          <div class="pb-title">月度复盘</div>
+          <div class="pb-days">每月末</div>
+          <div class="pb-items">
+            <div class="pb-item"><span class="pb-c" style="color:var(--cyan);">→</span> 交付量 vs 排期</div>
+            <div class="pb-item"><span class="pb-c" style="color:var(--cyan);">→</span> 效果数据汇报</div>
+            <div class="pb-item"><span class="pb-c" style="color:var(--cyan);">→</span> 下月策略 + 档位评估</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════ ROW 4: 品牌·获客·产品 交付框架 ═══════ -->
+<div class="grid">
+  <div class="card span-full">
+    <div class="card-header">
+      <span class="ic">🎯</span> 业务场景 · 品牌·获客·产品 交付框架
+      <span class="badge" style="background:var(--cyan-dim);color:var(--cyan);">三轴联动</span>
+    </div>
+    <div class="card-body">
+      <!-- Core logic -->
+      <div style="display:flex;align-items:center;gap:16px;padding:10px 14px;margin-bottom:14px;background:var(--bg-subtle);border-radius:var(--radius-sm);">
+        <div style="font-size:12px;color:var(--text-tertiary);flex-shrink:0;">核心逻辑</div>
+        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:13px;">
+          <span style="color:var(--cyan);font-weight:600;">品牌内容</span>
+          <span style="color:var(--text-tertiary);">→</span>
+          <span style="color:var(--gold);font-weight:600;">获客弹药</span>
+          <span style="color:var(--text-tertiary);">→</span>
+          <span style="color:var(--coral);font-weight:600;">引流客户</span>
+          <span style="color:var(--text-tertiary);">→</span>
+          <span style="color:var(--purple);font-weight:600;">产品承接</span>
+          <span style="color:var(--text-tertiary);">→</span>
+          <span style="color:var(--green);font-weight:600;">交付验证</span>
+          <span style="color:var(--text-tertiary);">→</span>
+          <span style="color:var(--amber);font-weight:600;">案例沉淀</span>
+          <span style="color:var(--text-tertiary);">→</span>
+          <span style="color:var(--cyan);font-weight:600;">品牌背书</span>
+        </div>
+      </div>
+
+      <!-- Three axes -->
+      <div class="framework-diagram">
+        <!-- Brand -->
+        <div class="fx-axis" style="border-left:2px solid var(--cyan);">
+          <div class="fx-label" style="color:var(--cyan);">🎨 品牌轴</div>
+          <ul class="fx-items">
+            <li>品牌定位矩阵 + 故事线</li>
+            <li>内容调性指南 + 视觉规范</li>
+            <li>每周品牌内容日历（选题+排期）</li>
+            <li>品牌资产库（Logo/图库/模板）</li>
+            <li>可选：IP孵化 / 品牌升级 / 声量监测</li>
+          </ul>
+          <div class="fx-bottom"><span class="highlight" style="color:var(--cyan);">产出：</span> 品牌完整度 + 调性一致性 + 内容日历</div>
+        </div>
+
+        <!-- Lead Gen -->
+        <div class="fx-axis" style="border-left:2px solid var(--gold);">
+          <div class="fx-label" style="color:var(--gold);">📡 获客轴</div>
+          <ul class="fx-items">
+            <li>获客管道诊断 + 转化漏斗报表</li>
+            <li>公众号每周 3-5 篇（写作+配图+排版）</li>
+            <li>小红书/短视频每周 5-10 条</li>
+            <li>私域朋友圈每日素材 + 社群话题</li>
+            <li>可选：KOL矩阵 / 投放优化 / 活动营销</li>
+          </ul>
+          <div class="fx-bottom"><span class="highlight" style="color:var(--gold);">产出：</span> 线索量 + 转化率 + 获客成本</div>
+        </div>
+
+        <!-- Product -->
+        <div class="fx-axis" style="border-left:2px solid var(--coral);">
+          <div class="fx-label" style="color:var(--coral);">📦 产品轴</div>
+          <ul class="fx-items">
+            <li>产品/服务 SKU 体系设计</li>
+            <li>核心产品定义 + 用户画像</li>
+            <li>定价策略矩阵</li>
+            <li>交付 SOP + 反馈收集 + 案例包装</li>
+            <li>可选：竞品监测 / 路线图 / 产品化咨询</li>
+          </ul>
+          <div class="fx-bottom"><span class="highlight" style="color:var(--coral);">产出：</span> 签约量 + 复购率 + 客户满意度</div>
+        </div>
+      </div>
+
+      <!-- Three-tier pricing -->
+      <div style="margin-top:14px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;">
+        <div style="background:var(--bg-subtle);border-radius:var(--radius-sm);padding:12px 14px;text-align:center;">
+          <div style="font-size:13px;color:var(--cyan);font-weight:600;">A · 品牌启航</div>
+          <div style="font-size:20px;font-weight:700;margin:4px 0;">¥5k<small style="font-size:13px;color:var(--text-tertiary);font-weight:400;">/月</small></div>
+          <div style="font-size:11px;color:var(--text-tertiary);">1台主机 · 4-6智能体 · 每周5-8件</div>
+        </div>
+        <div style="background:var(--gold-dim);border-radius:var(--radius-sm);padding:12px 14px;text-align:center;border:1px solid rgba(212,175,106,0.2);">
+          <div style="font-size:11px;color:var(--gold);font-weight:600;margin-bottom:2px;">★ 推荐</div>
+          <div style="font-size:13px;color:var(--gold);font-weight:600;">B · 获客引擎</div>
+          <div style="font-size:20px;font-weight:700;margin:4px 0;">¥8k<small style="font-size:13px;color:var(--text-tertiary);font-weight:400;">/月</small></div>
+          <div style="font-size:11px;color:var(--text-tertiary);">2台主机 · 8-12智能体 · 每周15-20件</div>
+        </div>
+        <div style="background:var(--bg-subtle);border-radius:var(--radius-sm);padding:12px 14px;text-align:center;">
+          <div style="font-size:13px;color:var(--coral);font-weight:600;">C · 全域托管</div>
+          <div style="font-size:20px;font-weight:700;margin:4px 0;">¥15k<small style="font-size:13px;color:var(--text-tertiary);font-weight:400;">/月</small></div>
+          <div style="font-size:11px;color:var(--text-tertiary);">3-4台主机 · 15-20智能体 · 每周30+件</div>
+        </div>
+      </div>
+
+      <!-- Resource mapping -->
+      <div style="margin-top:14px;padding:12px 14px;background:var(--bg-subtle);border-radius:var(--radius-sm);">
+        <div style="font-size:12px;color:var(--text-secondary);margin-bottom:8px;font-weight:600;">📋 资源映射 · 客户配置与工作站占用</div>
+        <table style="width:100%;border-collapse:collapse;font-size:12px;">
+          <tr>
+            <td style="padding:4px 8px;color:var(--text-tertiary);">A·品牌启航</td>
+            <td style="padding:4px 8px;color:var(--text-secondary);">1台主机 + 4-6智能体</td>
+            <td style="padding:4px 8px;color:var(--text-secondary);">FDE 0.3FTE + OPC 0.2FTE</td>
+            <td style="padding:4px 8px;color:var(--text-secondary);">可同时服务 2-3 家</td>
+          </tr>
+          <tr>
+            <td style="padding:4px 8px;color:var(--text-tertiary);">B·获客引擎</td>
+            <td style="padding:4px 8px;color:var(--text-secondary);">2台主机 + 8-12智能体</td>
+            <td style="padding:4px 8px;color:var(--text-secondary);">FDE 0.5FTE + OPC 0.3FTE</td>
+            <td style="padding:4px 8px;color:var(--text-secondary);">可同时服务 1-2 家</td>
+          </tr>
+          <tr>
+            <td style="padding:4px 8px;color:var(--text-tertiary);">C·全域托管</td>
+            <td style="padding:4px 8px;color:var(--text-secondary);">3-4台主机 + 15-20智能体</td>
+            <td style="padding:4px 8px;color:var(--text-secondary);">FDE 1FTE + OPC 0.5FTE + 方案师 0.3FTE</td>
+            <td style="padding:4px 8px;color:var(--text-secondary);">单客户专享</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════ ROW 5: Weekly Production Pipeline ═══════ -->
+<div class="grid">
+  <div class="card span-full">
+    <div class="card-header">
+      <span class="ic">📅</span> 交付节奏 · 周批次生产管线
+      <span class="badge" style="background:var(--cyan-dim);color:var(--cyan);">每周循环</span>
+    </div>
+    <div class="card-body">
+      <div class="process-row">
+        <div class="process-block pb-cyan" style="flex:1.2;">
+          <div class="pb-emoji">📝</div>
+          <div class="pb-title">周一 · 选题与策略</div>
+          <div class="pb-days" style="font-size:11px;">FDE + 方案师</div>
+          <div class="pb-items">
+            <div class="pb-item"><span class="pb-c" style="color:var(--cyan);">→</span> 周选题会 + 热点追踪</div>
+            <div class="pb-item"><span class="pb-c" style="color:var(--cyan);">→</span> 品牌/获客/产品策略校准</div>
+            <div class="pb-item"><span class="pb-c" style="color:var(--cyan);">→</span> 排期确认 + 任务分派</div>
+          </div>
+        </div>
+
+        <div class="pb-divider" style="font-size:14px;">→</div>
+
+        <div class="process-block pb-gold" style="flex:1.5;">
+          <div class="pb-emoji">⚙️</div>
+          <div class="pb-title">周二-三 · 生产</div>
+          <div class="pb-days" style="font-size:11px;">智能体 + FDE + OPC</div>
+          <div class="pb-items">
+            <div class="pb-item"><span class="pb-c" style="color:var(--gold);">→</span> 智能体批量产出初稿</div>
+            <div class="pb-item"><span class="pb-c" style="color:var(--gold);">→</span> FDE 人工审核 + 质量把关</div>
+            <div class="pb-item"><span class="pb-c" style="color:var(--gold);">→</span> OPC 处理边缘案例/异常</div>
+            <div class="pb-item"><span class="pb-c" style="color:var(--gold);">→</span> 质检关卡通过后定稿</div>
+          </div>
+        </div>
+
+        <div class="pb-divider" style="font-size:14px;">→</div>
+
+        <div class="process-block pb-cyan" style="flex:1;">
+          <div class="pb-emoji">📬</div>
+          <div class="pb-title">周四 · 交付</div>
+          <div class="pb-days" style="font-size:11px;">FDE → 客户</div>
+          <div class="pb-items">
+            <div class="pb-item"><span class="pb-c" style="color:var(--cyan);">→</span> 交付批次打包发出</div>
+            <div class="pb-item"><span class="pb-c" style="color:var(--cyan);">→</span> 客户反馈收集</div>
+          </div>
+        </div>
+
+        <div class="pb-divider" style="font-size:14px;">→</div>
+
+        <div class="process-block pb-gold" style="flex:1.3;">
+          <div class="pb-emoji">📊</div>
+          <div class="pb-title">周五 · 复盘</div>
+          <div class="pb-days" style="font-size:11px;">FDE + 方案师</div>
+          <div class="pb-items">
+            <div class="pb-item"><span class="pb-c" style="color:var(--gold);">→</span> 本周交付数据汇总</div>
+            <div class="pb-item"><span class="pb-c" style="color:var(--gold);">→</span> 下周选题 + 策略微调</div>
+            <div class="pb-item"><span class="pb-c" style="color:var(--gold);">→</span> 案例素材打标签入库</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════ FOOTER ═══════ -->
+<div style="text-align:center;padding:20px 0 8px;border-top:1px solid var(--border);margin-top:8px;">
+  <div style="font-family:'Noto Serif SC',serif;font-size:16px;font-weight:600;background:linear-gradient(135deg,var(--cyan),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;">
+    大鲤鱼超级工作站 · 共享虾塘
+  </div>
+  <div style="font-size:11px;color:var(--text-tertiary);margin-top:6px;display:flex;justify-content:center;gap:16px;flex-wrap:wrap;">
+    <span>跃水 Gen 2 · DLY-DEEP-G2</span>
+    <span>4算力节点 · 22+智能体 · 3交付档位 · 73实战项目</span>
+    <span>品牌 · 获客 · 产品 · 全域托管</span>
+  </div>
+</div>
+
+</div>
+</body>
+</html>

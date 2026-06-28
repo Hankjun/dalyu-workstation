@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>大鲤鱼超级工作站 · 品牌获客产品全域托管</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&family=Noto+Serif+SC:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg-deep: #0a1420;
+  --bg-card: rgba(15, 22, 36, 0.75);
+  --bg-card-hover: rgba(20, 30, 48, 0.85);
+  --border: rgba(125, 211, 200, 0.12);
+  --border-active: rgba(125, 211, 200, 0.35);
+  --cyan: #7dd3c8;
+  --cyan-dim: rgba(125, 211, 200, 0.08);
+  --gold: #d4af6a;
+  --gold-dim: rgba(212, 175, 106, 0.12);
+  --coral: #e07a5f;
+  --coral-dim: rgba(224, 122, 95, 0.10);
+  --amber: #f2a65a;
+  --amber-dim: rgba(242, 166, 90, 0.10);
+  --text: #eef2f8;
+  --text-secondary: #94a3b8;
+  --text-tertiary: #64748b;
+  --radius: 12px;
+  --radius-sm: 8px;
+  --shadow: 0 8px 40px rgba(0,0,0,0.4);
+  --glow-cyan: 0 0 30px rgba(125, 211, 200, 0.10);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Inter', -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  background: var(--bg-deep);
+  color: var(--text);
+  background-image: radial-gradient(ellipse at 20% 15%, rgba(125,211,200,0.05) 0%, transparent 50%),
+                    radial-gradient(ellipse at 80% 85%, rgba(242,166,90,0.04) 0%, transparent 50%);
+  min-height: 100vh;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Container ── */
+.page { max-width: 1120px; margin: 0 auto; padding: 40px 24px 60px; }
+
+/* ── Badge ── */
+.badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 6px 16px 6px 14px;
+  background: var(--cyan-dim);
+  border: 1px solid var(--border-active);
+  border-radius: 100px;
+  font-size: 12px; font-weight: 600; letter-spacing: 1.5px;
+  color: var(--cyan); text-transform: uppercase;
+  margin-bottom: 20px;
+}
+.badge::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--cyan); }
+
+/* ── Hero ── */
+.hero { text-align: center; margin-bottom: 56px; }
+.hero h1 {
+  font-family: 'Noto Serif SC', serif;
+  font-size: clamp(28px, 4.5vw, 48px);
+  font-weight: 700;
+  line-height: 1.25;
+  margin-bottom: 16px;
+}
+.hero h1 .highlight {
+  background: linear-gradient(135deg, var(--cyan), var(--gold));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.hero .sub {
+  font-size: clamp(15px, 2vw, 18px);
+  color: var(--text-secondary);
+  max-width: 680px;
+  margin: 0 auto 28px;
+  line-height: 1.7;
+}
+.hero .tagline {
+  display: inline-block;
+  padding: 12px 28px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+.hero .tagline strong { color: var(--gold); font-weight: 600; }
+
+/* ── Section Title ── */
+.section-title {
+  display: flex; align-items: center; gap: 12px;
+  margin-bottom: 20px;
+}
+.section-title .num {
+  width: 32px; height: 32px;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 8px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px; font-weight: 600;
+  background: var(--cyan-dim); color: var(--cyan);
+}
+.section-title h2 {
+  font-family: 'Noto Serif SC', serif;
+  font-size: clamp(20px, 2.5vw, 26px);
+  font-weight: 600;
+}
+
+/* ── Pain / Value Cards ── */
+.row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 56px; }
+@media (max-width: 680px) { .row-2 { grid-template-columns: 1fr; } }
+
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 28px 28px 32px;
+  transition: 0.3s ease;
+}
+.card:hover { border-color: var(--border-active); background: var(--bg-card-hover); }
+
+.card.icon-top .icon { font-size: 28px; margin-bottom: 14px; }
+.card h3 { font-size: 17px; font-weight: 600; margin-bottom: 10px; }
+.card p, .card li { font-size: 14px; color: var(--text-secondary); line-height: 1.7; }
+.card ul { list-style: none; padding: 0; }
+.card ul li { padding: 6px 0 6px 20px; position: relative; }
+.card ul li::before {
+  content: '›'; position: absolute; left: 4px;
+  color: var(--cyan); font-weight: 700; font-size: 16px;
+}
+
+/* ── What You Get ── */
+.what-you-get { margin-bottom: 56px; }
+.what-you-get .row-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; margin-bottom: 56px; }
+@media (max-width: 860px) { .what-you-get .row-3 { grid-template-columns: 1fr; } }
+
+.axis-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  transition: 0.3s ease;
+}
+.axis-card:hover { border-color: var(--border-active); }
+.axis-card .head {
+  padding: 20px 24px 14px;
+  border-bottom: 1px solid var(--border);
+}
+.axis-card .head .emoji { font-size: 24px; margin-bottom: 8px; }
+.axis-card .head h4 { font-size: 18px; font-weight: 600; }
+.axis-card .head p { font-size: 13px; color: var(--text-secondary); margin-top: 4px; }
+.axis-card .body { padding: 16px 24px 24px; }
+.axis-card .body .item {
+  display: flex; align-items: flex-start; gap: 10px;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  font-size: 14px; color: var(--text-secondary);
+}
+.axis-card .body .item:last-child { border-bottom: none; }
+.axis-card .body .item .check { color: var(--cyan); font-weight: 700; flex-shrink: 0; }
+
+/* ── Pricing Table ── */
+.pricing { margin-bottom: 48px; }
+.pricing-table {
+  display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px;
+}
+@media (max-width: 860px) { .pricing-table { grid-template-columns: 1fr; } }
+
+.plan {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 28px 24px;
+  position: relative;
+  transition: 0.3s ease;
+}
+.plan:hover { border-color: var(--border-active); background: var(--bg-card-hover); }
+.plan.recommended {
+  border-color: var(--gold);
+  background: linear-gradient(180deg, rgba(212,175,106,0.06), var(--bg-card));
+}
+.plan.recommended::before {
+  content: '推荐'; position: absolute; top: -1px; right: 24px;
+  padding: 4px 14px;
+  background: linear-gradient(135deg, var(--gold), var(--amber));
+  color: #0a1420; font-size: 12px; font-weight: 700;
+  border-radius: 0 0 8px 8px;
+  letter-spacing: 1px;
+}
+.plan .name { font-size: 16px; font-weight: 600; color: var(--text-secondary); margin-bottom: 4px; }
+.plan .price {
+  font-size: 32px; font-weight: 700; margin-bottom: 4px;
+}
+.plan .price small {
+  font-size: 16px; font-weight: 400; color: var(--text-tertiary);
+}
+.plan .desc {
+  font-size: 13px; color: var(--text-secondary);
+  margin-bottom: 20px; line-height: 1.6;
+}
+.plan .features { list-style: none; padding: 0; }
+.plan .features li {
+  font-size: 13px; color: var(--text-secondary);
+  padding: 6px 0;
+  display: flex; align-items: flex-start; gap: 8px;
+}
+.plan .features li .check { color: var(--cyan); flex-shrink: 0; }
+.plan .features li .gold-check { color: var(--gold); flex-shrink: 0; }
+
+/* ── Process ── */
+.process { margin-bottom: 48px; }
+.process-steps {
+  display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px;
+}
+@media (max-width: 860px) { .process-steps { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 480px) { .process-steps { grid-template-columns: 1fr; } }
+
+.step {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px 16px;
+  text-align: center;
+  transition: 0.3s ease;
+}
+.step:hover { border-color: var(--border-active); }
+.step .step-num {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  background: var(--cyan-dim);
+  color: var(--cyan);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px; font-weight: 600;
+  margin-bottom: 10px;
+}
+.step .step-label { font-size: 13px; font-weight: 600; margin-bottom: 4px; }
+.step .step-desc { font-size: 12px; color: var(--text-tertiary); line-height: 1.5; }
+
+/* ── CTA ── */
+.cta-section {
+  text-align: center;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 48px 24px;
+  margin-bottom: 32px;
+}
+.cta-section h2 {
+  font-family: 'Noto Serif SC', serif;
+  font-size: clamp(22px, 3vw, 30px);
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+.cta-section p {
+  font-size: 15px; color: var(--text-secondary);
+  max-width: 500px; margin: 0 auto 28px;
+}
+.cta-btn {
+  display: inline-block;
+  padding: 14px 40px;
+  background: linear-gradient(135deg, var(--cyan), #5bbfb0);
+  color: #0a1420; font-size: 16px; font-weight: 700;
+  border-radius: 100px;
+  text-decoration: none;
+  transition: 0.3s ease;
+}
+.cta-btn:hover { transform: scale(1.04); box-shadow: 0 8px 32px rgba(125,211,200,0.25); }
+
+/* ── Footer ── */
+.footer {
+  text-align: center;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+}
+.footer .brand {
+  font-family: 'Noto Serif SC', serif;
+  font-size: 18px; font-weight: 600;
+  background: linear-gradient(135deg, var(--cyan), var(--gold));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 6px;
+}
+.footer .meta {
+  font-size: 12px; color: var(--text-tertiary);
+  display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;
+}
+.footer .meta .tag {
+  padding: 2px 10px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  font-size: 11px;
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- Badge -->
+  <div style="text-align:center;"><div class="badge">跃水世代 Gen 2 · 共享虾塘</div></div>
+
+  <!-- Hero -->
+  <div class="hero">
+    <h1>
+      你的品牌·获客·产品<br>
+      <span class="highlight">我们帮你持续交付</span>
+    </h1>
+    <p class="sub">
+      别再分散精力管理品牌内容、获客渠道和产品包装。<br>
+      超级工作站用算力集群 + 智能体矩阵 + 驻场工程师，<br>
+      帮你把三件事统包成一份按月交付的结果。
+    </p>
+    <div class="tagline">
+      不是又一个AI工具——是 <strong>你的外挂数字团队</strong> 🐟
+    </div>
+  </div>
+
+  <!-- Pain / Gain -->
+  <div class="row-2">
+    <div class="card icon-top">
+      <div class="icon">😤</div>
+      <h3>你现在的样子</h3>
+      <ul>
+        <li>剪映、ChatGPT、Canva、飞书……装了七八个工具，产出还是断断续续</li>
+        <li>内容更新靠「有空再说」，获客渠道开了没精力管</li>
+        <li>产品/服务不知道怎么包装，客户问「你们做什么的」说不太清</li>
+        <li>想外包又怕被收「概念费」——方案好看，落地没影</li>
+      </ul>
+    </div>
+    <div class="card icon-top">
+      <div class="icon">✨</div>
+      <h3>加入工作站之后</h3>
+      <ul>
+        <li>每周固定收到品牌内容 + 获客素材 + 产品优化建议——像订报纸一样按时</li>
+        <li>10-20个智能体 7×24 运转，驻场工程师人工审核后交付，质量可控</li>
+        <li>每月的交付量 = 你过去自己做 2-3 个月的产出</li>
+        <li>不是卖你一个报告——是按月持续交付可衡量的结果</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- What You Get -->
+  <div class="what-you-get">
+    <div class="section-title">
+      <span class="num">01</span>
+      <h2>我们交付什么 · 三条线同步跑</h2>
+    </div>
+    <div class="row-3">
+      <div class="axis-card">
+        <div class="head">
+          <div class="emoji">🎨</div>
+          <h4>品牌轴</h4>
+          <p>让客户记住你、信任你、选择你</p>
+        </div>
+        <div class="body">
+          <div class="item"><span class="check">✓</span> 品牌定位与故事线</div>
+          <div class="item"><span class="check">✓</span> 内容调性指南 + 视觉规范</div>
+          <div class="item"><span class="check">✓</span> 每周品牌内容日历</div>
+          <div class="item"><span class="check">✓</span> 品牌资产库持续运营</div>
+          <div class="item"><span class="check">✓</span> 可选：IP孵化 / 品牌升级</div>
+        </div>
+      </div>
+      <div class="axis-card">
+        <div class="head">
+          <div class="emoji">📡</div>
+          <h4>获客轴</h4>
+          <p>持续获取精准客户流量</p>
+        </div>
+        <div class="body">
+          <div class="item"><span class="check">✓</span> 公众号每周 3-5 篇内容</div>
+          <div class="item"><span class="check">✓</span> 小红书/短视频每周 5-10 条</div>
+          <div class="item"><span class="check">✓</span> 私域朋友圈每日素材</div>
+          <div class="item"><span class="check">✓</span> 获客管道诊断 + 转化漏斗报表</div>
+          <div class="item"><span class="check">✓</span> 可选：KOL矩阵 / 投放优化</div>
+        </div>
+      </div>
+      <div class="axis-card">
+        <div class="head">
+          <div class="emoji">📦</div>
+          <h4>产品轴</h4>
+          <p>把能力变成可卖的SKU</p>
+        </div>
+        <div class="body">
+          <div class="item"><span class="check">✓</span> 产品/服务 SKU 体系设计</div>
+          <div class="item"><span class="check">✓</span> 定价策略矩阵</div>
+          <div class="item"><span class="check">✓</span> 交付 SOP 标准化</div>
+          <div class="item"><span class="check">✓</span> 客户反馈 + 案例包装</div>
+          <div class="item"><span class="check">✓</span> 可选：竞品监测 / 路线图</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pricing -->
+  <div class="pricing">
+    <div class="section-title">
+      <span class="num">02</span>
+      <h2>选一套适合你的配置</h2>
+    </div>
+    <div class="pricing-table">
+      <div class="plan">
+        <div class="name">A · 品牌启航</div>
+        <div class="price">¥5k<small>/月</small></div>
+        <div class="desc">品牌基础搭建 · 内容规范建立 · 持续品牌输出</div>
+        <ul class="features">
+          <li><span class="check">✓</span> 品牌定位 + 故事线 + 调性指南</li>
+          <li><span class="check">✓</span> 每周品牌内容日历（含选题/排期）</li>
+          <li><span class="check">✓</span> 公众号 + 小红书基础内容产出</li>
+          <li><span class="check">✓</span> 阶段性品牌资产库维护</li>
+          <li><span class="check">✓</span> 每月复盘会（线上）</li>
+          <li style="color:var(--text-tertiary);">— 不含获客管道运营 —</li>
+          <li style="color:var(--text-tertiary);">— 不含产品化包装 —</li>
+        </ul>
+      </div>
+
+      <div class="plan recommended">
+        <div class="name">B · 获客引擎</div>
+        <div class="price">¥8k<small>/月</small></div>
+        <div class="desc">持续获客 · 全渠道内容矩阵 · 管道优化</div>
+        <ul class="features">
+          <li><span class="gold-check">✓</span> 获客管道诊断 + 转化漏斗报表（双周）</li>
+          <li><span class="gold-check">✓</span> 公众号每周 3-5 篇（选题+写作+配图+排版）</li>
+          <li><span class="gold-check">✓</span> 小红书每周 5-10 条图文/视频脚本</li>
+          <li><span class="gold-check">✓</span> 私域朋友圈每日素材 + 社群话题</li>
+          <li><span class="gold-check">✓</span> 销售话术库维护</li>
+          <li><span class="gold-check">✓</span> 每月 2 次复盘会（线上）</li>
+          <li style="color:var(--text-tertiary);">— 不含品牌体系建设 —</li>
+          <li style="color:var(--text-tertiary);">— 不含产品化包装 —</li>
+        </ul>
+      </div>
+
+      <div class="plan">
+        <div class="name">C · 全域托管</div>
+        <div class="price">¥15k<small>/月</small></div>
+        <div class="desc">品牌·获客·产品 三线全覆盖 · 策略级托管</div>
+        <ul class="features">
+          <li><span class="gold-check">✓</span> 品牌轴全项（定位+IP+内容+资产库）</li>
+          <li><span class="gold-check">✓</span> 获客轴全项（全渠道+广告+转化优化）</li>
+          <li><span class="gold-check">✓</span> 产品轴全项（SKU+定价+SOP+竞品监测）</li>
+          <li><span class="gold-check">✓</span> 每周 30+ 件交付物</li>
+          <li><span class="gold-check">✓</span> 每月现场复盘会 + 2 次线上</li>
+          <li><span class="gold-check">✓</span> 专属方案师月度策略调整</li>
+          <li><span class="gold-check">✓</span> 品牌资产库托付管理</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Process -->
+  <div class="process">
+    <div class="section-title">
+      <span class="num">03</span>
+      <h2>你的加入流程</h2>
+    </div>
+    <div class="process-steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-label">品牌/获客体检</div>
+        <div class="step-desc">1-2 天出检测报告<br>告诉你三个轴的薄弱环节</div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-label">方案匹配</div>
+        <div class="step-desc">选档位 + 定交付清单<br>双方签字启动</div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-label">入驻部署</div>
+        <div class="step-desc">3-5 天建好工作站环境<br>启动智能体矩阵</div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-label">持续交付</div>
+        <div class="step-desc">每周固定批次产出<br>周周有进展，月月有复盘</div>
+      </div>
+      <div class="step">
+        <div class="step-num">5</div>
+        <div class="step-label">季度升级</div>
+        <div class="step-desc">每季度一次策略评估<br>按效果调整档位</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FAQ quick -->
+  <div class="row-2" style="margin-bottom:48px;">
+    <div class="card icon-top">
+      <div class="icon">🤖</div>
+      <h3>全是 AI 做的？人工在哪里？</h3>
+      <p>
+        后面是 10-20 个智能体在跑，但每一次交付都有 <strong>驻场工程师人工审核</strong> 后再发出。<br>
+        我们不做"AI 全自动翻车"的事——智能体提效，人控质量。
+      </p>
+    </div>
+    <div class="card icon-top">
+      <div class="icon">🔒</div>
+      <h3>我的数据安全吗？</h3>
+      <p>
+        所有客户数据独立加密存储，工作站不混用客户数据。<br>
+        方案 C 支持私有部署选项。<strong>数据资产归你所有</strong>，退出时可完整带走。
+      </p>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-section">
+    <h2>先做个免费的前测诊断</h2>
+    <p>
+      花一天时间，我们用 DLY-6C 框架帮你做一次品牌·获客·产品三轴体检，<br>
+      告诉你现在最该补哪块，再决定要不要托管。
+    </p>
+    <a href="#" class="cta-btn" onclick="return false;">📩 预约免费前测 →</a>
+    <div style="margin-top:14px; font-size:12px; color:var(--text-tertiary);">
+      或扫码联系 · 搜索「大鲤鱼超级工作站」
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <div class="brand">大鲤鱼超级工作站 · 共享虾塘</div>
+    <div class="meta">
+      <span>跃水世代 Gen 2</span>
+      <span class="tag">算力自持</span>
+      <span class="tag">智能体矩阵</span>
+      <span class="tag">驻场工程师</span>
+      <span class="tag">OPC 社区</span>
+      <span>🐟 品牌 · 获客 · 产品 · 全域托管</span>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
