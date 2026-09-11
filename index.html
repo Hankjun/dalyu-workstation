@@ -3,752 +3,689 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>大鲤鱼超级工作站 · 深潭 Gen 3</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<title>大鲤鱼超级工作站 · 共享虾塘 · 深潭 Gen 3</title>
+<meta name="description" content="大鲤鱼超级工作站——部门即服务（DaaS），专注「小快轻准」的 AI 项目运营。水深四代命名体系：浅滩·跃水·深潭·锦鲤。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..600&family=JetBrains+Mono:wght@400;500;600&family=Noto+Serif+SC:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
-:root {
-  --bg: #0c0c0e;
-  --surface: #141416;
-  --surface-hover: #1a1a1f;
-  --border: rgba(255,255,255,0.08);
-  --border-hover: rgba(255,255,255,0.16);
-  --text: #f0f0f4;
-  --text-secondary: #8e8e9c;
-  --text-tertiary: #5a5a6a;
-  --accent: #8B5CF6;
-  --accent-dim: rgba(139,92,246,0.08);
-  --accent-mid: rgba(139,92,246,0.15);
-  --cyan: #7ad1e0;
-  --cyan-dim: rgba(122,209,224,0.08);
-  --gold: #d4af6a;
-  --gold-dim: rgba(212,175,106,0.08);
-  --coral: #e07a5f;
-  --radius: 10px;
-  --radius-sm: 6px;
-}
-* { box-sizing: border-box; margin: 0; padding: 0; }
-body {
-  font-family: 'Inter', -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  -webkit-font-smoothing: antialiased;
-  padding: 32px 24px;
-}
-.dash { max-width: 1320px; margin: 0 auto; display: flex; flex-direction: column; gap: 24px; }
+  :root {
+    --bg: #0a1420;
+    --bg-deep: #060d16;
+    --surface: #0d1a28;
+    --surface-2: #10202f;
+    --surface-hover: #14293a;
+    --border: rgba(125,211,200,0.13);
+    --border-strong: rgba(125,211,200,0.28);
+    --teal: #7dd3c8;
+    --teal-dim: rgba(125,211,200,0.08);
+    --gold: #d4af6a;
+    --gold-dim: rgba(212,175,106,0.10);
+    --coral: #e07a5f;
+    --amber: #f2a65a;
+    --text: #e8eef4;
+    --text-2: #9db3bf;
+    --text-3: #5c7380;
+    --radius: 12px;
+    --radius-sm: 8px;
+    --serif: 'Noto Serif SC', 'Songti SC', 'STSong', serif;
+    --sans: 'Inter', 'PingFang SC', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+    --mono: 'JetBrains Mono', 'SF Mono', ui-monospace, monospace;
+    --display: 'Fraunces', 'Noto Serif SC', serif;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  ::selection { background: rgba(125,211,200,0.25); color: #fff; }
 
-/* Header */
-.header {
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 0 0 20px; border-bottom: 1px solid var(--border);
-  flex-wrap: wrap; gap: 16px;
-}
-.header-left { display: flex; align-items: center; gap: 16px; }
-.header-left .logo-wrap { width: 48px; height: 48px; border-radius: 10px; overflow: hidden; flex-shrink: 0; }
-.header-left .logo-wrap img { width: 100%; height: 100%; object-fit: contain; }
-.header-left .title-group h1 { font-size: 20px; font-weight: 700; letter-spacing: -0.3px; }
-.header-left .title-group .sub { font-size: 12px; color: var(--text-secondary); margin-top: 2px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-.header-left .title-group .gen-badge { display: inline-block; padding: 2px 10px; background: var(--accent-dim); border: 1px solid rgba(139,92,246,0.2); border-radius: 100px; font-size: 10px; font-weight: 600; color: var(--accent); letter-spacing: 0.5px; }
-.header-right { display: flex; align-items: center; gap: 20px; }
-.header-right .stat { text-align: right; }
-.header-right .stat .num { font-family: 'JetBrains Mono', monospace; font-size: 16px; font-weight: 600; }
-.header-right .stat .label { font-size: 11px; color: var(--text-tertiary); }
-.header-right .divider { width: 1px; height: 28px; background: var(--border); }
+  a { color: var(--teal); text-decoration: none; }
+  a:hover { color: #a7e6dd; }
 
-/* Section */
-.section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
-.section-header .ic { font-size: 16px; opacity: 0.8; }
-.section-header h2 { font-size: 16px; font-weight: 600; letter-spacing: -0.2px; }
-.section-header .meta { margin-left: auto; font-size: 11px; color: var(--text-tertiary); background: var(--surface); padding: 3px 10px; border-radius: 100px; border: 1px solid var(--border); }
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 32px; }
 
-/* Card */
-.card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; transition: 0.2s ease; }
-.card:hover { border-color: var(--border-hover); }
-.card-pad { padding: 20px; }
-.card-title { font-size: 13px; font-weight: 600; color: var(--text-secondary); margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+  /* ===== top tricolor brand line ===== */
+  .brandline {
+    height: 3px;
+    background: linear-gradient(90deg, var(--teal) 0%, var(--gold) 55%, var(--coral) 100%);
+    opacity: 0.9;
+  }
 
-.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-.grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
-.grid-4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 16px; }
-.grid-full { grid-column: 1 / -1; }
-@media (max-width: 960px) { .grid-3, .grid-4 { grid-template-columns: 1fr 1fr; } }
-@media (max-width: 600px) { .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; } }
+  /* ===== nav ===== */
+  nav {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(10,20,32,0.82);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-inner {
+    max-width: 1120px; margin: 0 auto; padding: 14px 32px;
+    display: flex; align-items: center; gap: 24px;
+  }
+  .wordmark { display: flex; align-items: center; gap: 12px; }
+  .mark {
+    width: 34px; height: 34px; flex: none;
+    border: 1.5px solid var(--teal); border-radius: 50%;
+    display: grid; place-items: center; position: relative;
+  }
+  .mark::after {
+    content: ''; width: 6px; height: 6px; border-radius: 50%;
+    background: var(--gold); position: absolute;
+  }
+  .mark::before {
+    content: ''; width: 18px; height: 18px; border-radius: 50%;
+    border: 1px solid rgba(125,211,200,0.4); position: absolute;
+  }
+  .logo-img { width: 34px; height: 34px; border-radius: 8px; flex: none; object-fit: cover; border: 1px solid var(--border); }
+  .wordmark .t1 { font-family: var(--serif); font-weight: 600; font-size: 15px; letter-spacing: 0.02em; }
+  .wordmark .t2 { font-size: 11px; color: var(--text-3); letter-spacing: 0.14em; margin-top: -1px; }
+  .nav-links { display: flex; gap: 22px; margin-left: auto; align-items: center; }
+  .nav-links a { color: var(--text-2); font-size: 13px; letter-spacing: 0.02em; }
+  .nav-links a:hover { color: var(--teal); }
+  .gen-badge {
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.06em;
+    color: var(--gold); border: 1px solid var(--gold); border-radius: 999px;
+    padding: 3px 10px; white-space: nowrap;
+  }
+  @media (max-width: 720px) { .nav-links a.opt { display: none; } }
 
-/* ══ KPI ══ */
-.kpi-block { width: 100%; }
-.kpi-meta { font-size: 12px; color: var(--text-tertiary); margin-bottom: 14px; }
+  /* ===== section scaffolding ===== */
+  section { padding: 88px 0; }
+  .eyebrow {
+    font-family: var(--mono); font-size: 12px; letter-spacing: 0.18em;
+    color: var(--teal); text-transform: uppercase; margin-bottom: 16px;
+  }
+  .eyebrow .sec-no { color: var(--text-3); margin-right: 10px; }
+  h2.section-title {
+    font-family: var(--serif); font-weight: 600; font-size: clamp(26px, 3.4vw, 40px);
+    letter-spacing: 0.01em; margin-bottom: 14px; color: var(--text);
+  }
+  .section-sub { color: var(--text-2); font-size: 16px; max-width: 640px; margin-bottom: 44px; }
 
-.kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
-@media (max-width: 900px) { .kpi-grid { grid-template-columns: repeat(2, 1fr); } }
-@media (max-width: 500px) { .kpi-grid { grid-template-columns: 1fr; } }
+  /* ===== hero ===== */
+  .hero { position: relative; overflow: hidden; padding: 96px 0 88px; }
+  .hero::before {
+    content: ''; position: absolute; inset: 0; pointer-events: none;
+    background:
+      repeating-linear-gradient(to bottom, transparent 0, transparent 46px, rgba(125,211,200,0.028) 46px, rgba(125,211,200,0.028) 47px);
+  }
+  .hero::after {
+    content: ''; position: absolute; right: -160px; top: 40px; width: 560px; height: 560px;
+    border-radius: 50%; border: 1px solid rgba(125,211,200,0.07); pointer-events: none;
+    box-shadow: 0 0 0 90px rgba(125,211,200,0.018), 0 0 0 200px rgba(125,211,200,0.012);
+  }
+  .hero-inner { position: relative; z-index: 1; }
+  .hero-company { font-size: 13px; color: var(--text-2); letter-spacing: 0.04em; margin-bottom: 28px; }
+  .hero-company .sep { color: var(--text-3); margin: 0 8px; }
+  h1.hero-title {
+    font-family: var(--serif); font-weight: 700;
+    font-size: clamp(38px, 6.4vw, 72px); line-height: 1.16; letter-spacing: 0.01em;
+    margin-bottom: 6px;
+  }
+  .hero-title .en {
+    font-family: var(--display); font-style: italic; font-weight: 400;
+    color: var(--teal); display: block; font-size: 0.52em; letter-spacing: 0.03em; margin-top: 8px;
+  }
+  .hero-sub { font-size: clamp(17px, 2vw, 21px); color: var(--text-2); max-width: 620px; margin-top: 24px; }
+  .hero-sub strong { color: var(--text); font-weight: 600; }
+  .hero-tagline {
+    margin-top: 20px; font-family: var(--serif); font-size: 18px; color: var(--gold);
+  }
+  .kw-pills { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 34px; }
+  .kw-pill {
+    border: 1px solid var(--border); border-radius: 999px; padding: 7px 16px;
+    font-size: 13px; color: var(--text-2); letter-spacing: 0.02em;
+  }
+  .kw-pill b { color: var(--teal); font-weight: 600; margin-right: 5px; }
 
-.kpi-group { border-radius: var(--radius-sm); overflow: hidden; }
-.kpi-group .kpi-hdr { display: flex; align-items: center; gap: 6px; padding: 8px 12px; font-size: 12px; font-weight: 600; }
-.kpi-group .kpi-body { padding: 10px 12px 12px; }
-.kpi-row { display: flex; justify-content: space-between; align-items: baseline; padding: 5px 0; border-bottom: 1px solid rgba(255,255,255,0.03); font-size: 13px; }
-.kpi-row:last-child { border-bottom: none; }
-.kpi-row .k-label { color: var(--text-secondary); }
-.kpi-row .k-value { font-family: 'JetBrains Mono', monospace; font-weight: 600; font-size: 15px; }
-.kpi-row .k-unit { font-size: 11px; color: var(--text-tertiary); font-weight: 400; margin-left: 2px; }
-.kpi-row .k-desc { font-size: 11px; color: var(--text-tertiary); text-align: right; }
+  .hero-stats {
+    display: grid; grid-template-columns: repeat(5, 1fr); gap: 1px;
+    background: var(--border); border: 1px solid var(--border); border-radius: var(--radius);
+    margin-top: 48px; overflow: hidden;
+  }
+  .stat { background: var(--surface); padding: 22px 18px; }
+  .stat .num { font-family: var(--mono); font-size: 26px; font-weight: 600; color: var(--teal); line-height: 1; }
+  .stat .num.gold { color: var(--gold); }
+  .stat .lbl { font-size: 12px; color: var(--text-3); margin-top: 8px; letter-spacing: 0.04em; }
+  @media (max-width: 720px) { .hero-stats { grid-template-columns: repeat(2, 1fr); } }
 
-/* ══ Framework detail ══ */
-.fw-core { display: flex; align-items: center; gap: 10px; padding: 10px 0; flex-wrap: wrap; font-size: 13px; }
-.fw-core .fw-label { font-size: 12px; color: var(--text-tertiary); font-weight: 500; }
+  .hero-cta { display: flex; gap: 14px; margin-top: 40px; flex-wrap: wrap; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 12px 26px; border-radius: 8px; font-size: 14px; font-weight: 600;
+    letter-spacing: 0.02em; border: 1px solid transparent; cursor: pointer;
+  }
+  .btn-primary { background: var(--teal); color: #06221d; }
+  .btn-primary:hover { background: #a7e6dd; }
+  .btn-ghost { border-color: var(--border-strong); color: var(--text); }
+  .btn-ghost:hover { border-color: var(--teal); color: var(--teal); }
 
-.axis-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
-@media (max-width: 900px) { .axis-grid { grid-template-columns: 1fr; } }
+  /* ===== generation timeline ===== */
+  .gen-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  @media (max-width: 900px) { .gen-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 560px) { .gen-grid { grid-template-columns: 1fr; } }
+  .gen-card {
+    border: 1px solid var(--border); border-radius: var(--radius);
+    background: var(--surface); padding: 26px 22px; position: relative;
+    transition: border-color .2s, transform .2s;
+  }
+  .gen-card:hover { border-color: var(--border-strong); transform: translateY(-3px); }
+  .gen-card.current { border-color: var(--gold); background: linear-gradient(180deg, var(--gold-dim), var(--surface) 70%); }
+  .gen-tag {
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em; color: var(--text-3);
+    margin-bottom: 16px; display: flex; align-items: center; gap: 8px;
+  }
+  .gen-card.current .gen-tag { color: var(--gold); }
+  .gen-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--text-3); }
+  .gen-card.current .gen-dot { background: var(--gold); }
+  .gen-name { font-family: var(--serif); font-size: 28px; font-weight: 700; line-height: 1.1; }
+  .gen-en { font-family: var(--display); font-style: italic; font-size: 17px; color: var(--teal); margin-top: 4px; }
+  .gen-card.current .gen-en { color: var(--gold); }
+  .gen-desc { font-size: 13px; color: var(--text-2); margin-top: 14px; line-height: 1.55; }
+  .gen-era { font-family: var(--mono); font-size: 11px; color: var(--text-3); margin-top: 18px; letter-spacing: 0.04em; }
 
-.axis-card { border-radius: var(--radius-sm); overflow: hidden; border: 1px solid var(--border); }
-.axis-card .ax-hdr { display: flex; align-items: center; gap: 8px; padding: 14px 16px; font-size: 14px; font-weight: 600; border-bottom: 1px solid var(--border); }
-.axis-card .ax-body { padding: 12px 16px 16px; }
-.ax-section { margin-top: 10px; }
-.ax-section:first-child { margin-top: 0; }
-.ax-section .ax-s-title { font-size: 11px; font-weight: 600; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
-.ax-item { display: flex; align-items: flex-start; gap: 8px; padding: 4px 0; font-size: 12px; color: var(--text-secondary); line-height: 1.5; }
-.ax-item .ax-check { flex-shrink: 0; font-weight: 700; }
-.ax-item .ax-sub { display: block; font-size: 11px; color: var(--text-tertiary); margin-top: 1px; }
-.ax-item.ax-opt { color: var(--text-tertiary); }
-.ax-divider { height: 1px; background: var(--border); margin: 10px 0; }
+  /* ===== dashboard ===== */
+  .dash-kpi {
+    display: grid; grid-template-columns: repeat(6, 1fr); gap: 1px;
+    background: var(--border); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden;
+    margin-bottom: 20px;
+  }
+  .kpi { background: var(--surface); padding: 20px 16px; }
+  .kpi .num { font-family: var(--mono); font-size: 30px; font-weight: 600; line-height: 1; }
+  .kpi .num.t { color: var(--teal); } .kpi .num.g { color: var(--gold); } .kpi .num.c { color: var(--coral); }
+  .kpi .lbl { font-size: 12px; color: var(--text-3); margin-top: 8px; }
+  @media (max-width: 900px) { .dash-kpi { grid-template-columns: repeat(3, 1fr); } }
+  @media (max-width: 560px) { .dash-kpi { grid-template-columns: repeat(2, 1fr); } }
 
-/* ══ Pricing detail ══ */
-.pricing-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
-@media (max-width: 960px) { .pricing-grid { grid-template-columns: 1fr; } }
+  .infra-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-bottom: 20px; }
+  @media (max-width: 760px) { .infra-grid { grid-template-columns: 1fr; } }
+  .infra-card { border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface); padding: 26px; }
+  .infra-card h3 { font-size: 15px; font-weight: 600; letter-spacing: 0.02em; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+  .infra-card h3 .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--teal); }
+  .infra-card h3 .dot.gold { background: var(--gold); }
+  .spec-row { display: flex; justify-content: space-between; align-items: baseline; padding: 9px 0; border-bottom: 1px solid var(--border); font-size: 13px; }
+  .spec-row:last-child { border-bottom: none; }
+  .spec-row .k { color: var(--text-2); }
+  .spec-row .v { font-family: var(--mono); font-size: 13px; color: var(--text); }
+  .tag-cloud { display: flex; flex-wrap: wrap; gap: 8px; }
+  .tag { font-size: 12px; padding: 4px 12px; border-radius: 999px; border: 1px solid var(--border); color: var(--text-2); }
+  .tag.tier-t { border-color: rgba(125,211,200,0.4); color: var(--teal); }
+  .tag.tier-g { border-color: rgba(212,175,106,0.4); color: var(--gold); }
 
-.plan-card { border-radius: var(--radius); overflow: hidden; border: 1px solid var(--border); transition: 0.2s; }
-.plan-card:hover { border-color: var(--border-hover); }
-.plan-card.plan-rec { border-color: var(--accent); }
+  /* ===== flow ===== */
+  .flow { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0; border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; background: var(--surface); }
+  @media (max-width: 860px) { .flow { grid-template-columns: 1fr; } }
+  .flow-step { padding: 24px 20px; position: relative; border-right: 1px solid var(--border); }
+  .flow-step:last-child { border-right: none; }
+  @media (max-width: 860px) { .flow-step { border-right: none; border-bottom: 1px solid var(--border); } .flow-step:last-child { border-bottom: none; } }
+  .flow-step .idx { font-family: var(--mono); font-size: 11px; color: var(--gold); letter-spacing: 0.1em; }
+  .flow-step h4 { font-size: 15px; font-weight: 600; margin: 8px 0 6px; }
+  .flow-step p { font-size: 12.5px; color: var(--text-2); line-height: 1.5; }
 
-.plan-hdr { padding: 20px 20px 16px; text-align: center; border-bottom: 1px solid var(--border); }
-.plan-hdr .pl-name { font-size: 15px; font-weight: 600; }
-.plan-hdr .pl-tag { display: inline-block; font-size: 10px; padding: 2px 8px; border-radius: 3px; margin-left: 6px; font-weight: 600; background: var(--accent-mid); color: var(--accent); }
-.plan-hdr .pl-price { font-size: 30px; font-weight: 700; margin: 6px 0 2px; }
-.plan-hdr .pl-price small { font-size: 14px; font-weight: 400; color: var(--text-tertiary); }
-.plan-hdr .pl-desc { font-size: 12px; color: var(--text-tertiary); line-height: 1.5; }
+  /* ===== 小快轻准 ===== */
+  .skqz-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  @media (max-width: 900px) { .skqz-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 560px) { .skqz-grid { grid-template-columns: 1fr; } }
+  .skqz-card { border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface); padding: 26px 22px; }
+  .skqz-card .zh { font-family: var(--serif); font-size: 44px; font-weight: 700; color: var(--teal); line-height: 1; }
+  .skqz-card .def { font-size: 14px; font-weight: 600; color: var(--text); margin: 12px 0 6px; }
+  .skqz-card .explain { font-size: 13px; color: var(--text-2); line-height: 1.55; }
 
-.plan-body { padding: 16px 20px 20px; }
-.plan-body .pl-section { margin-top: 14px; }
-.plan-body .pl-section:first-child { margin-top: 0; }
-.plan-body .pl-section .pl-s-title { font-size: 11px; font-weight: 600; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
-.pl-line { display: flex; justify-content: space-between; align-items: baseline; padding: 5px 0; border-bottom: 1px solid rgba(255,255,255,0.03); font-size: 13px; }
-.pl-line:last-child { border-bottom: none; }
-.pl-line .pl-l { color: var(--text-secondary); }
-.pl-line .pl-r { font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 500; }
-.pl-line .pl-check { color: var(--accent); font-weight: 700; }
-.pl-line .pl-dash { color: var(--text-tertiary); }
-.pl-note { font-size: 11px; color: var(--text-tertiary); margin-top: 10px; padding: 8px 10px; background: rgba(255,255,255,0.02); border-radius: 4px; line-height: 1.5; }
+  /* ===== cases ===== */
+  .case-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  @media (max-width: 760px) { .case-grid { grid-template-columns: 1fr; } }
+  .case-card { border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface); padding: 28px; display: flex; flex-direction: column; }
+  .case-tag { font-family: var(--mono); font-size: 10px; letter-spacing: 0.12em; color: var(--gold); text-transform: uppercase; margin-bottom: 14px; }
+  .case-card h3 { font-family: var(--serif); font-size: 20px; font-weight: 600; margin-bottom: 10px; }
+  .case-card p { font-size: 14px; color: var(--text-2); line-height: 1.6; }
+  .case-meta { margin-top: auto; padding-top: 18px; display: flex; gap: 8px; flex-wrap: wrap; }
+  .case-meta .m { font-size: 11px; color: var(--text-3); border: 1px solid var(--border); border-radius: 999px; padding: 3px 10px; }
 
-/* ══ Process ══ */
-.build-flow { display: flex; gap: 6px; }
-@media (max-width: 700px) { .build-flow { flex-direction: column; } }
-.bf-step { flex: 1; padding: 14px 12px; border-radius: var(--radius-sm); background: rgba(255,255,255,0.02); text-align: center; transition: 0.2s; }
-.bf-step:hover { background: var(--accent-dim); }
-.bf-step .bf-em { font-size: 20px; margin-bottom: 2px; }
-.bf-step .bf-title { font-size: 13px; font-weight: 600; margin: 2px 0 4px; }
-.bf-step .bf-days { font-size: 10px; color: var(--text-tertiary); }
-.bf-step .bf-items { margin-top: 6px; font-size: 11px; color: var(--text-secondary); line-height: 1.7; }
-.bf-arrow { display: flex; align-items: center; font-size: 16px; color: var(--text-tertiary); padding: 0 2px; }
+  /* ===== scenes ===== */
+  .scene-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  @media (max-width: 900px) { .scene-grid { grid-template-columns: 1fr; } }
+  .scene-col { border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface); padding: 26px; }
+  .scene-col h3 { font-size: 16px; font-weight: 600; display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
+  .scene-col h3 .c { width: 8px; height: 8px; border-radius: 2px; }
+  .scene-col .count { font-family: var(--mono); font-size: 11px; color: var(--text-3); margin-bottom: 16px; }
+  .scene-item { display: flex; justify-content: space-between; align-items: baseline; padding: 8px 0; border-bottom: 1px solid var(--border); font-size: 13px; }
+  .scene-item:last-child { border-bottom: none; }
+  .scene-item .n { color: var(--text-2); }
+  .scene-item .p { font-family: var(--mono); font-size: 12px; color: var(--text); white-space: nowrap; }
+  .scene-item .p.coral { color: var(--coral); }
+  .scene-item .flag { font-size: 10px; margin-left: 6px; }
+  .scene-item .flag.star { color: var(--gold); }
+  .scene-item .flag.new { color: var(--coral); }
+  .scene-note { font-size: 12px; color: var(--text-3); margin-top: 14px; line-height: 1.5; }
 
-/* ══ Pipeline ══ */
-.pipeline { display: flex; gap: 6px; }
-@media (max-width: 700px) { .pipeline { flex-direction: column; } }
-.pipe-step { flex: 1; padding: 14px 12px; border-radius: var(--radius-sm); text-align: center; transition: 0.2s; }
-.pipe-step .ps-em { font-size: 20px; margin-bottom: 4px; }
-.pipe-step .ps-title { font-size: 13px; font-weight: 600; }
-.pipe-step .ps-owner { font-size: 10px; color: var(--text-tertiary); margin: 2px 0 6px; }
-.pipe-step .ps-items { font-size: 11px; color: var(--text-secondary); line-height: 1.6; }
-.pipe-arrow { display: flex; align-items: center; font-size: 14px; color: var(--text-tertiary); }
+  /* ===== pricing ===== */
+  .price-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px; }
+  @media (max-width: 900px) { .price-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 560px) { .price-grid { grid-template-columns: 1fr; } }
+  .price-card { border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface); padding: 24px 22px; }
+  .price-card.hot { border-color: var(--gold); }
+  .price-card .pname { font-size: 13px; color: var(--text-2); }
+  .price-card .pnum { font-family: var(--mono); font-size: 30px; font-weight: 600; color: var(--teal); margin: 8px 0 2px; }
+  .price-card.hot .pnum { color: var(--gold); }
+  .price-card .punit { font-family: var(--mono); font-size: 12px; color: var(--text-3); }
+  .price-card .pdesc { font-size: 12.5px; color: var(--text-2); margin-top: 12px; line-height: 1.5; }
+  .price-note { border: 1px dashed var(--border-strong); border-radius: var(--radius); padding: 20px 24px; font-size: 13px; color: var(--text-2); line-height: 1.7; }
+  .price-note strong { color: var(--teal); }
 
-/* ══ Lists ══ */
-.item-list { list-style: none; padding: 0; }
-.item-list li { display: flex; align-items: flex-start; gap: 8px; padding: 5px 0; font-size: 13px; color: var(--text-secondary); line-height: 1.5; border-bottom: 1px solid rgba(255,255,255,0.03); }
-.item-list li:last-child { border-bottom: none; }
-.item-list li .dot { width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-top: 7px; }
-.item-list li .hl { color: var(--text); font-weight: 500; }
+  /* ===== cta / contact ===== */
+  .cta-band {
+    border: 1px solid var(--gold); border-radius: var(--radius);
+    background: linear-gradient(180deg, var(--gold-dim), var(--surface) 80%);
+    padding: 48px 40px; text-align: center;
+  }
+  .cta-band h2 { font-family: var(--serif); font-size: clamp(24px, 3vw, 34px); font-weight: 600; margin-bottom: 10px; }
+  .cta-band .sub { color: var(--text-2); font-size: 15px; margin-bottom: 26px; }
+  .cta-contact { display: flex; justify-content: center; gap: 28px; flex-wrap: wrap; font-size: 15px; }
+  .cta-contact .item { color: var(--text-2); }
+  .cta-contact .item b { color: var(--gold); font-family: var(--mono); font-weight: 500; letter-spacing: 0.02em; }
 
-.cols-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-@media (max-width: 600px) { .cols-2 { grid-template-columns: 1fr; } }
-
-/* ══ Team grid ══ */
-.team-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-@media (max-width: 500px) { .team-grid { grid-template-columns: 1fr; } }
-.team-card { padding: 12px; border-radius: var(--radius-sm); background: rgba(255,255,255,0.02); }
-.team-card .role-row { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
-.team-card .role-row .name { font-size: 14px; font-weight: 600; }
-.team-card .role-row .badge { font-size: 10px; padding: 1px 8px; border-radius: 3px; font-weight: 600; }
-.team-card .desc { font-size: 12px; color: var(--text-tertiary); line-height: 1.6; }
-.team-card .sk-tags { display: flex; gap: 4px; flex-wrap: wrap; margin-top: 6px; }
-.team-card .sk-tags .sk { font-size: 10px; padding: 2px 7px; background: var(--accent-dim); color: var(--accent); border-radius: 3px; }
-
-/* ══ Footer ══ */
-.footer { text-align: center; padding: 20px 0 4px; border-top: 1px solid var(--border); font-size: 11px; color: var(--text-tertiary); display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
-.footer .brand { font-weight: 600; color: var(--text-secondary); }
+  footer { border-top: 1px solid var(--border); padding: 48px 0 56px; margin-top: 20px; }
+  .foot-grid { display: flex; justify-content: space-between; gap: 30px; flex-wrap: wrap; }
+  .foot-brand { max-width: 460px; }
+  .foot-brand .co { font-family: var(--serif); font-weight: 600; font-size: 16px; margin-bottom: 8px; }
+  .foot-brand p { font-size: 12.5px; color: var(--text-3); line-height: 1.6; }
+  .foot-lines h4 { font-size: 12px; letter-spacing: 0.1em; color: var(--text-2); margin-bottom: 12px; text-transform: uppercase; }
+  .foot-lines ul { list-style: none; }
+  .foot-lines li { font-size: 12.5px; color: var(--text-3); padding: 3px 0; }
+  .copyright { margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--border); font-size: 11.5px; color: var(--text-3); letter-spacing: 0.02em; }
 </style>
 </head>
 <body>
-<div class="dash">
 
-<!-- ═══ HEADER ═══ -->
-<div class="header">
-  <div class="header-left">
-    <div class="logo-wrap"><img src="logo.png" alt="大鲤鱼超级工作站"></div>
-    <div class="title-group">
-      <h1>大鲤鱼超级工作站</h1>
-      <div class="sub">
-        <span class="gen-badge">深潭 Gen 3</span>
-        <span>共享虾塘 · 品牌获客产品全域托管</span>
+<div class="brandline"></div>
+
+<nav>
+  <div class="nav-inner">
+    <div class="wordmark">
+      <img class="logo-img" src="logo.png" alt="大鲤鱼超级工作站 logo">
+      <div>
+        <div class="t1">大鲤鱼超级工作站</div>
+        <div class="t2">共享虾塘 · DALIYU WORKSTATION</div>
+      </div>
+    </div>
+    <div class="nav-links">
+      <a href="#generations" class="opt">水深四代</a>
+      <a href="#dashboard" class="opt">仪表盘</a>
+      <a href="#cases" class="opt">案例</a>
+      <a href="#scenes" class="opt">场景目录</a>
+      <a href="#pricing" class="opt">定价</a>
+      <span class="gen-badge">深潭 Gen 3</span>
+    </div>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<header class="hero">
+  <div class="wrap hero-inner">
+    <div class="hero-company">无锡大鲤鱼文化科技发展有限公司<span class="sep">·</span>DALIYU BASE<span class="sep">·</span>长三角「人工智能 + 电商」数智化转型服务商</div>
+
+    <h1 class="hero-title">
+      大鲤鱼超级工作站
+      <span class="en">Department as a Service — 部门即服务</span>
+    </h1>
+
+    <p class="hero-sub">
+      把企划、设计、运营等部门能力，变成<strong>可购买、可交付、可复用</strong>的服务。
+      私域部署在基地，22+ 智能体编排 + 超级个体 + 交付工程师协同，为中小企业做<strong>「小快轻准」</strong>的 AI 项目落地。
+    </p>
+
+    <p class="hero-tagline">让 AI 真正长在创业者的日常里。</p>
+
+    <div class="kw-pills">
+      <span class="kw-pill"><b>小</b>颗粒度小，从一个具体问题开始</span>
+      <span class="kw-pill"><b>快</b>响应快，快速形成方案与行动</span>
+      <span class="kw-pill"><b>轻</b>部署轻，不背复杂系统负担</span>
+      <span class="kw-pill"><b>准</b>场景准，落在经营现场</span>
+    </div>
+
+    <div class="hero-stats">
+      <div class="stat"><div class="num">4</div><div class="lbl">算力节点</div></div>
+      <div class="stat"><div class="num">22+</div><div class="lbl">智能体三层架构</div></div>
+      <div class="stat"><div class="num">24</div><div class="lbl">可售场景</div></div>
+      <div class="stat"><div class="num gold">73</div><div class="lbl">实战项目</div></div>
+      <div class="stat"><div class="num gold">¥99</div><div class="lbl">次卡起</div></div>
+    </div>
+
+    <div class="hero-cta">
+      <a class="btn btn-primary" href="#contact">预约 AI 诊断 →</a>
+      <a class="btn btn-ghost" href="#scenes">查看 24 场景目录</a>
+    </div>
+  </div>
+</header>
+
+<!-- ============ GENERATIONS ============ -->
+<section id="generations">
+  <div class="wrap">
+    <div class="eyebrow"><span class="sec-no">§ 01</span>水深四代 · 命名体系</div>
+    <h2 class="section-title">版本号本身，就在讲产品故事</h2>
+    <p class="section-sub">客户记不住 V2.0，但记得住「鱼往深水游」。四代水深，每一代都是一次能力跃迁。</p>
+
+    <div class="gen-grid">
+      <div class="gen-card">
+        <div class="gen-tag"><span class="gen-dot"></span>GEN 1 · 历史</div>
+        <div class="gen-name">浅滩</div>
+        <div class="gen-en">Shoal</div>
+        <p class="gen-desc">早期单机探索，V3 → V4 架构设计阶段。在岸边试水，验证单点能力。</p>
+        <div class="gen-era">~2026.04</div>
+      </div>
+      <div class="gen-card">
+        <div class="gen-tag"><span class="gen-dot"></span>GEN 2 · 上一代</div>
+        <div class="gen-name">跃水</div>
+        <div class="gen-en">Leap</div>
+        <p class="gen-desc">4 机 + 云 + 移动多态协同，试运营接单，四档定价体系成型。</p>
+        <div class="gen-era">2026.06 · DLY-DEEP-G2</div>
+      </div>
+      <div class="gen-card current">
+        <div class="gen-tag"><span class="gen-dot"></span>GEN 3 · 当前 ●</div>
+        <div class="gen-name">深潭</div>
+        <div class="gen-en">Deep</div>
+        <p class="gen-desc">集群化、企业级私有部署。部门即服务（DaaS），24 个可售场景，2–5 万/年起。</p>
+        <div class="gen-era">DLY-DEEP-G3</div>
+      </div>
+      <div class="gen-card">
+        <div class="gen-tag"><span class="gen-dot"></span>GEN 4 · 远景</div>
+        <div class="gen-name">锦鲤</div>
+        <div class="gen-en">Koi</div>
+        <p class="gen-desc">自运转生态、对外赋能——从「帮客户做塘」走向「教客户造塘」。</p>
+        <div class="gen-era">DLY-DEEP-G4</div>
       </div>
     </div>
   </div>
-  <div class="header-right">
-    <div class="stat"><div class="num" style="color:var(--accent);">4</div><div class="label">算力节点</div></div>
-    <div class="divider"></div>
-    <div class="stat"><div class="num" style="color:var(--cyan);">22+</div><div class="label">智能体</div></div>
-    <div class="divider"></div>
-    <div class="stat"><div class="num" style="color:var(--gold);">3</div><div class="label">交付档位</div></div>
-    <div class="divider"></div>
-    <div class="stat"><div class="num" style="color:var(--coral);">73</div><div class="label">实战项目</div></div>
-  </div>
-</div>
+</section>
 
-<!-- ════════════ 1. 业务仪表盘 (明细版) ════════════ -->
-<div class="section-header">
-  <span class="ic">📊</span>
-  <h2>业务仪表盘 · 全维度指标</h2>
-  <span class="meta">目标值 · 用来追踪运营健康度</span>
-</div>
+<!-- ============ DASHBOARD ============ -->
+<section id="dashboard" style="padding-top: 0;">
+  <div class="wrap">
+    <div class="eyebrow"><span class="sec-no">§ 02</span>项目仪表盘</div>
+    <h2 class="section-title">一处看清，我们有什么、怎么干</h2>
+    <p class="section-sub">4 台算力节点、三层智能体、一套四步交付法，撑起小快轻准的项目运营。</p>
 
-<div class="card card-pad">
-  <div class="kpi-meta">按月追踪 · 基准值为一个全托管客户（C档）满载时的参考线</div>
+    <div class="dash-kpi">
+      <div class="kpi"><div class="num t">4</div><div class="lbl">本地节点</div></div>
+      <div class="kpi"><div class="num t">22+</div><div class="lbl">智能体</div></div>
+      <div class="kpi"><div class="num g">3</div><div class="lbl">智能体层级</div></div>
+      <div class="kpi"><div class="num g">24</div><div class="lbl">可售场景</div></div>
+      <div class="kpi"><div class="num c">73</div><div class="lbl">实战项目</div></div>
+      <div class="kpi"><div class="num c">¥99</div><div class="lbl">次卡起点</div></div>
+    </div>
 
-  <div class="kpi-grid">
-    <!-- 客户维度 -->
-    <div class="kpi-group" style="background:var(--accent-dim);">
-      <div class="kpi-hdr" style="background:var(--accent-mid);color:var(--accent);">👥 客户维度</div>
-      <div class="kpi-body">
-        <div class="kpi-row"><span class="k-label">在服客户数</span><span class="k-value" style="color:var(--accent);">3-5<span class="k-unit">家</span></span></div>
-        <div class="kpi-row"><span class="k-label">新签 / 月</span><span class="k-value">1-2<span class="k-unit">家</span></span></div>
-        <div class="kpi-row"><span class="k-label">客户续约率</span><span class="k-value">≥85<span class="k-unit">%</span></span></div>
-        <div class="kpi-row"><span class="k-label">平均客单价</span><span class="k-value">8-15<span class="k-unit">K/月</span></span></div>
-        <div class="kpi-row"><span class="k-label">平均合同周期</span><span class="k-value">6-12<span class="k-unit">月</span></span></div>
+    <div class="infra-grid">
+      <div class="infra-card">
+        <h3><span class="dot"></span>硬件节点</h3>
+        <div class="spec-row"><span class="k">基地工作室 · 主机 1 号</span><span class="v">本地算力</span></div>
+        <div class="spec-row"><span class="k">基地工作室 · 主机 2 号</span><span class="v">本地算力</span></div>
+        <div class="spec-row"><span class="k">基地工作室 · 主机 3 号</span><span class="v">本地算力</span></div>
+        <div class="spec-row"><span class="k">汉克个人 Mac</span><span class="v">移动协同</span></div>
+        <div class="spec-row"><span class="k">多台云主机</span><span class="v">云端弹性</span></div>
+      </div>
+      <div class="infra-card">
+        <h3><span class="dot gold"></span>智能体三层架构</h3>
+        <div class="spec-row"><span class="k">旗舰云模型</span><span class="v">3 款</span></div>
+        <div class="spec-row"><span class="k">派系小龙虾</span><span class="v">15 款</span></div>
+        <div class="spec-row"><span class="k">涌现式 Agent 框架</span><span class="v">4+ 款</span></div>
+        <div class="tag-cloud" style="margin-top:16px;">
+          <span class="tag tier-t">Claude</span><span class="tag tier-t">Gemini</span><span class="tag tier-t">ChatGPT</span>
+          <span class="tag">Qclaw</span><span class="tag">WorkBuddy</span><span class="tag">扣子 Coze</span><span class="tag">Hermes</span><span class="tag tier-g">自研 Antigravity</span>
+        </div>
+      </div>
+      <div class="infra-card">
+        <h3><span class="dot"></span>三层水域配置</h3>
+        <div class="spec-row"><span class="k">塘底 · 本地 4 台</span><span class="v">私有部署</span></div>
+        <div class="spec-row"><span class="k">流水 · 云 N 台</span><span class="v">弹性扩展</span></div>
+        <div class="spec-row"><span class="k">浮游 · 移动 2 端</span><span class="v">随叫随到</span></div>
+        <p style="font-size:12.5px;color:var(--text-3);margin-top:14px;line-height:1.55;">本地 + 云 + 移动三态协同，客户数据私域留存在基地，不流失、可审计。</p>
+      </div>
+      <div class="infra-card">
+        <h3><span class="dot gold"></span>交付团队</h3>
+        <div class="spec-row"><span class="k">方案师 · 智能体</span><span class="v">诊断策划</span></div>
+        <div class="spec-row"><span class="k">FDE 交付工程师</span><span class="v">落地执行</span></div>
+        <div class="spec-row"><span class="k">OPC 超级个体</span><span class="v">专项承接</span></div>
+        <div class="tag-cloud" style="margin-top:16px;">
+          <span class="tag">组队比赛</span><span class="tag">实战项目</span><span class="tag">课题研发</span>
+        </div>
       </div>
     </div>
 
-    <!-- 交付维度 -->
-    <div class="kpi-group" style="background:var(--cyan-dim);">
-      <div class="kpi-hdr" style="background:rgba(122,209,224,0.12);color:var(--cyan);">📦 交付维度</div>
-      <div class="kpi-body">
-        <div class="kpi-row"><span class="k-label">周交付批次</span><span class="k-value" style="color:var(--cyan);">30-60<span class="k-unit">件</span></span></div>
-        <div class="kpi-row"><span class="k-label">按时交付率</span><span class="k-value">≥95<span class="k-unit">%</span></span></div>
-        <div class="kpi-row"><span class="k-label">客户修改率</span><span class="k-value">≤15<span class="k-unit">%</span></span></div>
-        <div class="kpi-row"><span class="k-label">平均响应时间</span><span class="k-value">&lt;4<span class="k-unit">h</span></span></div>
-        <div class="kpi-row"><span class="k-label">智能体出稿合格率</span><span class="k-value">≥70<span class="k-unit">%</span></span></div>
+    <div class="flow">
+      <div class="flow-step">
+        <div class="idx">01</div><h4>前测诊断</h4>
+        <p>AI 应用成熟度评估，找到最小可切入的具体问题。</p>
       </div>
-    </div>
-
-    <!-- 获客效果 -->
-    <div class="kpi-group" style="background:var(--gold-dim);">
-      <div class="kpi-hdr" style="background:rgba(212,175,106,0.12);color:var(--gold);">📈 获客效果</div>
-      <div class="kpi-body">
-        <div class="kpi-row"><span class="k-label">月度线索量</span><span class="k-value" style="color:var(--gold);">200-500<span class="k-unit">条</span></span></div>
-        <div class="kpi-row"><span class="k-label">线索→意向 转化</span><span class="k-value">15-20<span class="k-unit">%</span></span></div>
-        <div class="kpi-row"><span class="k-label">内容阅读量/月</span><span class="k-value">10-50<span class="k-unit">K</span></span></div>
-        <div class="kpi-row"><span class="k-label">公众号粉丝增长</span><span class="k-value">500-2000<span class="k-unit">/月</span></span></div>
-        <div class="kpi-row"><span class="k-label">获客成本 (CAC)</span><span class="k-value">≤100<span class="k-unit">元/线索</span></span></div>
-        <div class="kpi-row"><span class="k-label">内容渠道ROI</span><span class="k-value">≥3x</span></div>
+      <div class="flow-step">
+        <div class="idx">02</div><h4>方案签约</h4>
+        <p>场景级菜单式方案，先跑通一个场景再谈组合。</p>
       </div>
-    </div>
-
-    <!-- 经营维度 -->
-    <div class="kpi-group" style="background:rgba(224,122,95,0.08);">
-      <div class="kpi-hdr" style="background:rgba(224,122,95,0.12);color:var(--coral);">🏢 经营维度</div>
-      <div class="kpi-body">
-        <div class="kpi-row"><span class="k-label">月收入 (MRR)</span><span class="k-value" style="color:var(--coral);">80-150<span class="k-unit">K</span></span></div>
-        <div class="kpi-row"><span class="k-label">毛利率</span><span class="k-value">≥60<span class="k-unit">%</span></span></div>
-        <div class="kpi-row"><span class="k-label">算力利用率</span><span class="k-value">60-80<span class="k-unit">%</span></span></div>
-        <div class="kpi-row"><span class="k-label">FDE 人效</span><span class="k-value">2-3<span class="k-unit">客户/人</span></span></div>
-        <div class="kpi-row"><span class="k-label">客户满意度 NPS</span><span class="k-value" style="color:var(--cyan);">85+</span></div>
+      <div class="flow-step">
+        <div class="idx">03</div><h4>入驻生产</h4>
+        <p>智能体编排 + 人工把关，按周按件交付。</p>
       </div>
-    </div>
-  </div>
-</div>
-
-<!-- ════════════ 2. 基础设施 ════════════ -->
-<div class="section-header">
-  <span class="ic">⚙️</span>
-  <h2>基础设施 · 硬件 + 软件 + 智能体 + 团队</h2>
-</div>
-
-<div class="grid-4">
-  <div class="card card-pad">
-    <div class="card-title">🖥️ 硬件 · 算力底座</div>
-    <div class="spec-row"><span class="k-label">主机 A</span><span style="color:var(--text-secondary);font-size:12px;">基地 · 主力生产</span><span style="font-size:11px;font-weight:600;background:var(--accent-dim);color:var(--accent);padding:2px 10px;border-radius:4px;">推理</span></div>
-    <div style="height:1px;background:var(--border);margin:6px 0;"></div>
-    <div class="spec-row"><span class="k-label">主机 B</span><span style="color:var(--text-secondary);font-size:12px;">基地 · 分布式</span><span style="font-size:11px;font-weight:600;background:var(--cyan-dim);color:var(--cyan);padding:2px 10px;border-radius:4px;">知识库</span></div>
-    <div style="height:1px;background:var(--border);margin:6px 0;"></div>
-    <div class="spec-row"><span class="k-label">主机 C</span><span style="color:var(--text-secondary);font-size:12px;">前台 · 展示/直播</span><span style="font-size:11px;font-weight:600;background:var(--gold-dim);color:var(--gold);padding:2px 10px;border-radius:4px;">互动</span></div>
-    <div style="height:1px;background:var(--border);margin:6px 0;"></div>
-    <div class="spec-row"><span class="k-label">主机 D</span><span style="color:var(--text-secondary);font-size:12px;">Mac · 创作</span><span style="font-size:11px;font-weight:600;background:rgba(224,122,95,0.1);color:var(--coral);padding:2px 10px;border-radius:4px;">设计</span></div>
-    <div style="margin-top:10px;padding-top:10px;border-top:1px solid var(--border);font-size:12px;color:var(--text-tertiary);">外设：直播间推流 · 移动端监控 · 云弹性扩展</div>
-  </div>
-
-  <div class="card card-pad">
-    <div class="card-title">🧩 软件 · 智能体平台</div>
-    <ul class="item-list">
-      <li><span class="dot" style="background:var(--accent)"></span><span class="hl">Harness 算力治理</span> — 调度·脱敏·路由</li>
-      <li><span class="dot" style="background:var(--cyan)"></span><span class="hl">智能体技能开发</span> — Prompt·工作流·工具调用</li>
-      <li><span class="dot" style="background:var(--gold)"></span><span class="hl">数字员工部署</span> — 方案师·运营·质检·销转</li>
-      <li><span class="dot" style="background:var(--coral)"></span><span class="hl">业务工作流编排</span> — 周批次·SOP·质检查卡</li>
-      <li><span class="dot" style="background:#6ba4e8"></span><span class="hl">知识库 + RAG</span> — 品牌语料·行业知识库</li>
-      <li><span class="dot" style="background:#b887e8"></span><span class="hl">经营中台系统</span> — CRM·前测·项目·商店·财务</li>
-    </ul>
-  </div>
-
-  <div class="card card-pad">
-    <div class="card-title">🤖 智能体矩阵 · 22+</div>
-    <div style="font-size:11px;color:var(--text-tertiary);margin-bottom:10px;">三层结构</div>
-    <div style="display:flex;flex-wrap:wrap;gap:5px;">
-      <span style="font-size:10px;padding:2px 8px;border-radius:3px;background:var(--accent-dim);color:var(--accent);">● 常驻</span>
-      <span style="font-size:10px;padding:2px 8px;border-radius:3px;background:var(--cyan-dim);color:var(--cyan);">● 周期</span>
-      <span style="font-size:10px;padding:2px 8px;border-radius:3px;background:var(--gold-dim);color:var(--gold);">● 专项</span>
-    </div>
-    <div style="margin-top:8px;display:flex;flex-wrap:wrap;gap:5px;">
-      <span style="font-size:11px;padding:3px 10px;background:rgba(255,255,255,0.03);border-radius:3px;color:var(--text-secondary);"><span style="color:var(--accent);">●</span> 选题规划</span>
-      <span style="font-size:11px;padding:3px 10px;background:rgba(255,255,255,0.03);border-radius:3px;color:var(--text-secondary);"><span style="color:var(--accent);">●</span> 公众号写作</span>
-      <span style="font-size:11px;padding:3px 10px;background:rgba(255,255,255,0.03);border-radius:3px;color:var(--text-secondary);"><span style="color:var(--cyan);">●</span> 小红书排版</span>
-      <span style="font-size:11px;padding:3px 10px;background:rgba(255,255,255,0.03);border-radius:3px;color:var(--text-secondary);"><span style="color:var(--cyan);">●</span> 私域运营</span>
-      <span style="font-size:11px;padding:3px 10px;background:rgba(255,255,255,0.03);border-radius:3px;color:var(--text-secondary);"><span style="color:var(--cyan);">●</span> SEO/GEO</span>
-      <span style="font-size:11px;padding:3px 10px;background:rgba(255,255,255,0.03);border-radius:3px;color:var(--text-secondary);"><span style="color:var(--gold);">●</span> 品牌定位</span>
-      <span style="font-size:11px;padding:3px 10px;background:rgba(255,255,255,0.03);border-radius:3px;color:var(--text-secondary);"><span style="color:var(--gold);">●</span> 数据诊断</span>
-      <span style="font-size:11px;padding:3px 10px;background:rgba(255,255,255,0.03);border-radius:3px;color:var(--text-secondary);"><span style="color:var(--gold);">●</span> 竞品监测</span>
-      <span style="font-size:11px;padding:3px 10px;background:rgba(255,255,255,0.03);border-radius:3px;color:var(--text-secondary);"><span style="color:var(--gold);">●</span> 舆情扫描</span>
-      <span style="font-size:11px;padding:3px 10px;background:rgba(255,255,255,0.03);border-radius:3px;color:var(--text-secondary);"><span style="color:var(--coral);">●</span> 方案设计</span>
-      <span style="font-size:11px;padding:3px 10px;background:rgba(255,255,255,0.03);border-radius:3px;color:var(--text-secondary);"><span style="color:var(--coral);">●</span> IP孵化</span>
-      <span style="font-size:11px;padding:3px 10px;background:rgba(255,255,255,0.03);border-radius:3px;color:var(--text-secondary);"><span style="color:#b887e8;">●</span> 质量校验</span>
-      <span style="font-size:11px;padding:3px 10px;background:rgba(255,255,255,0.03);border-radius:3px;color:var(--text-secondary);"><span style="color:#b887e8;">●</span> 交付调度</span>
-    </div>
-  </div>
-
-  <div class="card card-pad">
-    <div class="card-title">👥 团队 · FDE + OPC 组合</div>
-    <div class="team-grid">
-      <div class="team-card">
-        <div class="role-row"><span class="name">FDE 驻场工程师</span><span class="badge" style="background:var(--accent-dim);color:var(--accent);">全职</span></div>
-        <div class="desc">工作站日常运转 · 智能体调用 · 人工审核 · 客户交付对接</div>
-        <div class="sk-tags"><span class="sk">智能体操作</span><span class="sk">质量把控</span><span class="sk">客户沟通</span><span class="sk">排期管理</span></div>
+      <div class="flow-step">
+        <div class="idx">04</div><h4>持续运营</h4>
+        <p>数据复盘、场景增购，从一单长成长期关系。</p>
       </div>
-      <div class="team-card">
-        <div class="role-row"><span class="name">OPC 智能体编排师</span><span class="badge" style="background:var(--cyan-dim);color:var(--cyan);">社区</span></div>
-        <div class="desc">工作流编排 · Prompt 工程 · 智能体技能开发 · 边缘案例处理</div>
-        <div class="sk-tags"><span class="sk">Prompt工程</span><span class="sk">工作流编排</span><span class="sk">RAG搭建</span><span class="sk">工具开发</span></div>
-      </div>
-      <div class="team-card">
-        <div class="role-row"><span class="name">OPC 方案师</span><span class="badge" style="background:var(--gold-dim);color:var(--gold);">社区</span></div>
-        <div class="desc">品牌/获客/产品策略设计 · 月度复盘 · 档位建议</div>
-        <div class="sk-tags"><span class="sk">品牌策略</span><span class="sk">获客诊断</span><span class="sk">产品设计</span><span class="sk">行业分析</span></div>
-      </div>
-      <div class="team-card">
-        <div class="role-row"><span class="name">项目经理</span><span class="badge" style="background:rgba(107,164,232,0.1);color:#6ba4e8;">中台</span></div>
-        <div class="desc">需求衔接 · 排期协调 · 验收确认 · 回款 · 升级处理</div>
+      <div class="flow-step">
+        <div class="idx">05</div><h4>月度复盘</h4>
+        <p>结果交付 + 下月路线，客户看得见每一分投入。</p>
       </div>
     </div>
   </div>
-</div>
+</section>
 
-<!-- ════════════ 3. 建站→运营 全流程 ════════════ -->
-<div class="section-header">
-  <span class="ic">🏗️</span>
-  <h2>建站 → 运营 全流程</h2>
-  <span class="meta">第0天 → 持续运营</span>
-</div>
+<!-- ============ 小快轻准 ============ -->
+<section id="approach" style="padding-top: 0;">
+  <div class="wrap">
+    <div class="eyebrow"><span class="sec-no">§ 03</span>运营方法论</div>
+    <h2 class="section-title">专注「小快轻准」的项目运营</h2>
+    <p class="section-sub">不把 AI 讲得更大，而是把 AI 做得更小、更快、更轻、更准——创始人吴俊原话定义。</p>
 
-<div class="card card-pad">
-  <div class="build-flow">
-    <div class="bf-step">
-      <div class="bf-em">🔍</div>
-      <div class="bf-title">前测诊断</div>
-      <div class="bf-days">第0天 · 1-2天</div>
-      <div class="bf-items">DLY-6C 三轴体检<br>三维评分<br>档位推荐+报价</div>
-    </div>
-    <div class="bf-arrow">→</div>
-    <div class="bf-step">
-      <div class="bf-em">📝</div>
-      <div class="bf-title">方案签约</div>
-      <div class="bf-days">第3天 · 会面</div>
-      <div class="bf-items">交付方案书确认<br>档位+月度排期<br>首月付款</div>
-    </div>
-    <div class="bf-arrow">→</div>
-    <div class="bf-step">
-      <div class="bf-em">⚡</div>
-      <div class="bf-title">入驻建站</div>
-      <div class="bf-days">3-5天</div>
-      <div class="bf-items">分配算力+主机<br>部署智能体矩阵<br>建资产库+KPI看板<br>首次选题会</div>
-    </div>
-    <div class="bf-arrow">→</div>
-    <div class="bf-step">
-      <div class="bf-em">🔄</div>
-      <div class="bf-title">持续运营</div>
-      <div class="bf-days">每周批次</div>
-      <div class="bf-items">周一选题策略<br>周二三生产+审核<br>周四交付·周五复盘</div>
-    </div>
-    <div class="bf-arrow">→</div>
-    <div class="bf-step">
-      <div class="bf-em">📈</div>
-      <div class="bf-title">月度复盘</div>
-      <div class="bf-days">每月末</div>
-      <div class="bf-items">交付量 vs 排期<br>效果数据<br>下月策略调整</div>
-    </div>
-  </div>
-</div>
-
-<!-- ════════════ 4. 业务场景 · 三个轴的交付细节 ════════════ -->
-<div class="section-header">
-  <span class="ic">🎯</span>
-  <h2>业务场景 · 品牌·获客·产品 交付框架</h2>
-  <span class="meta">三轴联动 · 细化到每个交付物</span>
-</div>
-
-<div class="card" style="border-radius:var(--radius) var(--radius) 0 0;">
-  <div class="card-pad">
-    <div class="fw-core">
-      <span class="fw-label">核心逻辑</span>
-      <span style="color:var(--accent);font-weight:600;">品牌内容</span><span style="color:var(--text-tertiary);">→</span>
-      <span style="color:var(--cyan);font-weight:600;">获客弹药</span><span style="color:var(--text-tertiary);">→</span>
-      <span style="color:var(--gold);font-weight:600;">引流客户</span><span style="color:var(--text-tertiary);">→</span>
-      <span style="color:var(--coral);font-weight:600;">产品承接</span><span style="color:var(--text-tertiary);">→</span>
-      <span style="color:#6ba4e8;font-weight:600;">交付验证</span><span style="color:var(--text-tertiary);">→</span>
-      <span style="color:#b887e8;font-weight:600;">案例沉淀</span><span style="color:var(--text-tertiary);">→</span>
-      <span style="color:var(--accent);font-weight:600;">品牌背书</span>
-    </div>
-  </div>
-</div>
-
-<div class="axis-grid" style="margin-top:-1px;">
-  <!-- 品牌轴 -->
-  <div class="axis-card" style="border-top-left-radius:0;border-top-right-radius:0;">
-    <div class="ax-hdr" style="background:var(--accent-dim);color:var(--accent);">🎨 品牌轴</div>
-    <div class="ax-body">
-      <div class="ax-section">
-        <div class="ax-s-title">基础建设（首月完成）</div>
-        <div class="ax-item"><span class="ax-check" style="color:var(--accent);">✓</span> 品牌定位矩阵：三问框架（你是谁/为谁/凭什么）<span class="ax-sub">格式：1页框架文档</span></div>
-        <div class="ax-item"><span class="ax-check" style="color:var(--accent);">✓</span> 品牌故事线：创始人故事/品牌起源/用户故事模板<span class="ax-sub">格式：1份文档 + 3篇范文</span></div>
-        <div class="ax-item"><span class="ax-check" style="color:var(--accent);">✓</span> 视觉基础规范：品牌色/字体/Logo应用<span class="ax-sub">格式：规范文档</span></div>
-        <div class="ax-item"><span class="ax-check" style="color:var(--accent);">✓</span> 内容调性指南：语气/词汇/禁忌词/人格设定<span class="ax-sub">格式：正反例文档</span></div>
+    <div class="skqz-grid">
+      <div class="skqz-card">
+        <div class="zh">小</div>
+        <div class="def">颗粒度小</div>
+        <p class="explain">能从一个具体问题开始。不卖大而全的「平台」，先卖一个能立刻见效的场景。</p>
       </div>
-      <div class="ax-divider"></div>
-      <div class="ax-section">
-        <div class="ax-s-title">持续生产（每周交付）</div>
-        <div class="ax-item"><span class="ax-check" style="color:var(--accent);">✓</span> 品牌内容日历：周选题+热点+节点排期<span class="ax-sub">每周产出</span></div>
-        <div class="ax-item"><span class="ax-check" style="color:var(--accent);">✓</span> 品牌内容产出：公众号推文/海报/朋友圈品牌内容<span class="ax-sub">纳入获客轴统一交付</span></div>
-        <div class="ax-item"><span class="ax-check" style="color:var(--accent);">✓</span> 品牌资产库：文件夹体系/命名规范/版本管理<span class="ax-sub">持续维护</span></div>
+      <div class="skqz-card">
+        <div class="zh">快</div>
+        <div class="def">响应快</div>
+        <p class="explain">快速形成方案、工具和行动。工单「能勾别写」，当面成单、快速交付。</p>
       </div>
-      <div class="ax-divider"></div>
-      <div class="ax-section">
-        <div class="ax-s-title">可选增值（加购/升级）</div>
-        <div class="ax-item ax-opt"><span class="ax-check" style="color:var(--text-tertiary);">+</span> IP孵化：角色设定/人格/人设/话术体系</div>
-        <div class="ax-item ax-opt"><span class="ax-check" style="color:var(--text-tertiary);">+</span> 品牌叙事体系：年度叙事主线+季度传播战役</div>
-        <div class="ax-item ax-opt"><span class="ax-check" style="color:var(--text-tertiary);">+</span> 品牌声量监测：周报（提及量/情感/竞品对标）</div>
+      <div class="skqz-card">
+        <div class="zh">轻</div>
+        <div class="def">部署轻</div>
+        <p class="explain">不让中小企业背上复杂系统负担。MVP 先做表格 + 文档 + 微信群，再上系统。</p>
       </div>
-      <div class="ax-divider"></div>
-      <div class="ax-section">
-        <div class="ax-s-title">产出衡量</div>
-        <div class="ax-item"><span style="color:var(--text-secondary);font-size:12px;">品牌完整度评分 · 调性一致性 · 资产库完整度 · 内容日历完成率</span></div>
+      <div class="skqz-card">
+        <div class="zh">准</div>
+        <div class="def">场景准</div>
+        <p class="explain">必须真正落在创业者的经营现场。24 个场景精确到篇数、件数、频率。</p>
       </div>
     </div>
   </div>
+</section>
 
-  <!-- 获客轴 -->
-  <div class="axis-card" style="border-top-left-radius:0;border-top-right-radius:0;">
-    <div class="ax-hdr" style="background:rgba(122,209,224,0.1);color:var(--cyan);">📡 获客轴</div>
-    <div class="ax-body">
-      <div class="ax-section">
-        <div class="ax-s-title">基础建设（首月完成）</div>
-        <div class="ax-item"><span class="ax-check" style="color:var(--cyan);">✓</span> 获客管道诊断：当前来源分析+缺口诊断+优先级排序<span class="ax-sub">格式：文档+数据图</span></div>
-        <div class="ax-item"><span class="ax-check" style="color:var(--cyan);">✓</span> 销售话术库：FAQ/异议处理/跟进SOP<span class="ax-sub">基于真实对话提炼</span></div>
+<!-- ============ CASES ============ -->
+<section id="cases" style="padding-top: 0;">
+  <div class="wrap">
+    <div class="eyebrow"><span class="sec-no">§ 04</span>项目案例</div>
+    <h2 class="section-title">不是演示，是真实交付</h2>
+    <p class="section-sub">从 AI 搜索优化到行业方案，从产品化工具到第一曲线客户，每一个都跑在真实经营现场。</p>
+
+    <div class="case-grid">
+      <div class="case-card">
+        <div class="case-tag">GEO · 第一曲线客户</div>
+        <h3>中域玖壹 · 仓鼠云仓</h3>
+        <p>大鲤鱼 OPC 社区第一曲线客户项目。为其提供 AI 落地解决方案，推进 GEO（生成式引擎优化）落地，已完成完整客户案例与海外事业调研报告，进入实质性合作推进。</p>
+        <div class="case-meta"><span class="m">GEO 落地</span><span class="m">客户案例</span><span class="m">调研报告</span></div>
       </div>
-      <div class="ax-divider"></div>
-      <div class="ax-section">
-        <div class="ax-s-title">持续生产（每周交付批次）</div>
-        <div class="ax-item"><span class="ax-check" style="color:var(--cyan);">✓</span> 公众号内容矩阵：每周3-5篇（选题→写作→配图→排版→SEO）<span class="ax-sub">含头图/摘要/标签/关键词</span></div>
-        <div class="ax-item"><span class="ax-check" style="color:var(--cyan);">✓</span> 小红书/短视频：每周5-10条内容+封面+标题+话题<span class="ax-sub">含视频脚本/分镜</span></div>
-        <div class="ax-item"><span class="ax-check" style="color:var(--cyan);">✓</span> 私域素材：每日朋友圈文案+社群话题+品牌日签</div>
-        <div class="ax-item"><span class="ax-check" style="color:var(--cyan);">✓</span> GEO/SEO内容：每周2篇优化文章<span class="ax-sub">关键词布局+收录优化</span></div>
+      <div class="case-card">
+        <div class="case-tag">GEO 评测 · 无锡</div>
+        <h3>高思控制 GEO 评测</h3>
+        <p>为江苏高思控制系统（热处理气氛控制）评测品牌在国内主流 AI 智能体中的可见度，输出 AIVO 综合评分 65/100 的评测报告与 P0 优化路线图，覆盖智谱、360 AI 搜索等平台实测。</p>
+        <div class="case-meta"><span class="m">AIVO 65/100</span><span class="m">评测报告</span><span class="m">优化路线图</span></div>
       </div>
-      <div class="ax-divider"></div>
-      <div class="ax-section">
-        <div class="ax-s-title">数据复盘（双周/月度）</div>
-        <div class="ax-item"><span class="ax-check" style="color:var(--cyan);">✓</span> 获客转化漏斗报表：线索→沟通→意向→签约<span class="ax-sub">带洞察+推荐动作</span></div>
-        <div class="ax-item"><span class="ax-check" style="color:var(--cyan);">✓</span> 内容效果周报：阅读量/转化/互动/粉丝增长</div>
+      <div class="case-card">
+        <div class="case-tag">产品化 · 交付管理</div>
+        <h3>建筑汇报 PPT 助手</h3>
+        <p>Claude 暖调展示页 + 咨询表单定价引擎 + HTML 预览生成器。核心差异化：咨询 → 定价 → 按页反馈的交付链，做交付管理而非只做模板。</p>
+        <div class="case-meta"><span class="m">定价引擎</span><span class="m">8 种页面</span><span class="m">交付链</span></div>
       </div>
-      <div class="ax-divider"></div>
-      <div class="ax-section">
-        <div class="ax-s-title">可选增值（加购/升级）</div>
-        <div class="ax-item ax-opt"><span class="ax-check" style="color:var(--text-tertiary);">+</span> 多渠道分发自动化：跨平台排期/定时发布/评论回复</div>
-        <div class="ax-item ax-opt"><span class="ax-check" style="color:var(--text-tertiary);">+</span> KOL/达人矩阵：筛选→触达→合作SOP→效果追踪</div>
-        <div class="ax-item ax-opt"><span class="ax-check" style="color:var(--text-tertiary);">+</span> 广告投放优化：策略→素材A/B测试→优化报告</div>
-        <div class="ax-item ax-opt"><span class="ax-check" style="color:var(--text-tertiary);">+</span> 活动营销全案：线上活动/直播/裂变方案</div>
-      </div>
-      <div class="ax-divider"></div>
-      <div class="ax-section">
-        <div class="ax-s-title">产出衡量</div>
-        <div class="ax-item"><span style="color:var(--text-secondary);font-size:12px;">线索量 · 转化率 · CAC · 内容产出量 · 渠道ROI</span></div>
+      <div class="case-card">
+        <div class="case-tag">行业方案 · 直播电商</div>
+        <h3>直播电商 AI 智能体方案</h3>
+        <p>面向江苏直播电商产业创新服务基地的行业方案，8 大模块 × 32 子场景，覆盖数字人直播、短视频生产、智能营销与 AIGC 内容生产，挂靠 Deep3.0 行业包。</p>
+        <div class="case-meta"><span class="m">8 模块</span><span class="m">32 子场景</span><span class="m">数字人</span></div>
       </div>
     </div>
   </div>
+</section>
 
-  <!-- 产品轴 -->
-  <div class="axis-card" style="border-top-left-radius:0;border-top-right-radius:0;">
-    <div class="ax-hdr" style="background:var(--gold-dim);color:var(--gold);">📦 产品轴</div>
-    <div class="ax-body">
-      <div class="ax-section">
-        <div class="ax-s-title">基础建设（首月完成）</div>
-        <div class="ax-item"><span class="ax-check" style="color:var(--gold);">✓</span> 产品/服务 SKU 体系：完整SKU清单+定价层级+客户画像匹配<span class="ax-sub">把「做什么生意」变成「卖什么」</span></div>
-        <div class="ax-item"><span class="ax-check" style="color:var(--gold);">✓</span> 核心产品定义文档：产品定位/功能/用户故事/竞争对比<span class="ax-sub">每款产品一份</span></div>
-        <div class="ax-item"><span class="ax-check" style="color:var(--gold);">✓</span> 服务交付 SOP：接单→执行→验收→复盘全标准化<span class="ax-sub">可传抄可培训可复制</span></div>
-        <div class="ax-item"><span class="ax-check" style="color:var(--gold);">✓</span> 定价策略矩阵：价格锚点/档位设计/支付方式/选配清单</div>
-        <div class="ax-item"><span class="ax-check" style="color:var(--gold);">✓</span> 客户反馈系统：NPS问卷/回访SOP/优化日志<span class="ax-sub">每月回收+迭代</span></div>
+<!-- ============ SCENES ============ -->
+<section id="scenes" style="padding-top: 0;">
+  <div class="wrap">
+    <div class="eyebrow"><span class="sec-no">§ 05</span>深潭 Gen 3 · 场景目录</div>
+    <h2 class="section-title">24 个可售场景，菜单式选购</h2>
+    <p class="section-sub">以前卖「套餐」，客户不知道里面有什么；现在卖「菜单」，客户自己选，自己加起来的钱不会嫌贵。</p>
+
+    <div class="scene-grid">
+      <div class="scene-col">
+        <h3><span class="c" style="background:var(--teal)"></span>品牌沉淀线</h3>
+        <div class="count">8 个场景 · 沉淀层</div>
+        <div class="scene-item"><span class="n">B-01 品牌公众号全年运营</span><span class="p">¥36,000/年</span></div>
+        <div class="scene-item"><span class="n">B-02 品牌叙事升级</span><span class="p">¥28,000</span></div>
+        <div class="scene-item"><span class="n">B-03 品牌 IP 设计全案</span><span class="p">¥32,000</span></div>
+        <div class="scene-item"><span class="n">B-04 内容日历 + 热点策略</span><span class="p">¥15,000/年</span></div>
+        <div class="scene-item"><span class="n">B-05 品牌视觉规范手册</span><span class="p">¥12,000</span></div>
+        <div class="scene-item"><span class="n">B-06 品牌声量监测</span><span class="p">¥9,600/年</span></div>
+        <div class="scene-item"><span class="n">B-07 品牌定位 + 战略梳理</span><span class="p">¥22,000</span></div>
+        <div class="scene-item"><span class="n">B-08 品牌资产库搭建</span><span class="p">¥8,000</span></div>
+        <p class="scene-note">把「品牌」从概念变成持续产出、可衡量的资产。</p>
       </div>
-      <div class="ax-divider"></div>
-      <div class="ax-section">
-        <div class="ax-s-title">持续产出（每完成一个案例）</div>
-        <div class="ax-item"><span class="ax-check" style="color:var(--gold);">✓</span> 案例包装：标准模板（问题→方案→结果→数据）<span class="ax-sub">品牌+获客的双重素材</span></div>
+      <div class="scene-col">
+        <h3><span class="c" style="background:var(--gold)"></span>获客增长线</h3>
+        <div class="count">10 个场景 · 流量层</div>
+        <div class="scene-item"><span class="n">G-01 公众号矩阵获客</span><span class="p">¥48,000/年</span></div>
+        <div class="scene-item"><span class="n">G-02 小红书 / 短视频矩阵</span><span class="p">¥42,000/年</span></div>
+        <div class="scene-item"><span class="n">G-03 GEO（AI 搜索）获客 <span class="flag new">🆕</span></span><span class="p coral">¥36,000/年</span></div>
+        <div class="scene-item"><span class="n">G-04 私域搭建 + 运营</span><span class="p">¥48,000/年</span></div>
+        <div class="scene-item"><span class="n">G-05 多平台矩阵（全域）<span class="flag star">👑</span></span><span class="p">¥84,000/年</span></div>
+        <div class="scene-item"><span class="n">G-06 投放优化 + 素材</span><span class="p">¥60,000/年</span></div>
+        <div class="scene-item"><span class="n">G-07 KOL / KOC 矩阵</span><span class="p">¥36,000/年</span></div>
+        <div class="scene-item"><span class="n">G-08 SEO 内容体系</span><span class="p">¥24,000/年</span></div>
+        <div class="scene-item"><span class="n">G-09 管道诊断 + 优化</span><span class="p">¥15,000</span></div>
+        <div class="scene-item"><span class="n">G-10 直播获客运营</span><span class="p">¥42,000/年</span></div>
+        <p class="scene-note">用 AI + 内容矩阵，系统化降低获客成本、提升线索质量。</p>
       </div>
-      <div class="ax-divider"></div>
-      <div class="ax-section">
-        <div class="ax-s-title">可选增值（加购/升级）</div>
-        <div class="ax-item ax-opt"><span class="ax-check" style="color:var(--text-tertiary);">+</span> 产品路线图 Roadmap：3-6-12个月迭代规划</div>
-        <div class="ax-item ax-opt"><span class="ax-check" style="color:var(--text-tertiary);">+</span> 竞品监测与分析：月报（竞品动态/价格/功能/流量）</div>
-        <div class="ax-item ax-opt"><span class="ax-check" style="color:var(--text-tertiary);">+</span> 产品化升级咨询：从人工服务→产品→规模化路径</div>
-      </div>
-      <div class="ax-divider"></div>
-      <div class="ax-section">
-        <div class="ax-s-title">产出衡量</div>
-        <div class="ax-item"><span style="color:var(--text-secondary);font-size:12px;">SKU完整度 · 定价合理性 · SOP可执行率 · 案例产出数 · NPS</span></div>
+      <div class="scene-col">
+        <h3><span class="c" style="background:var(--coral)"></span>产品造势线</h3>
+        <div class="count">6 个场景 · 事件层</div>
+        <div class="scene-item"><span class="n">P-01 产品发布会全套</span><span class="p">¥48–78K</span></div>
+        <div class="scene-item"><span class="n">P-02 产品 SKU 体系设计</span><span class="p">¥22,000</span></div>
+        <div class="scene-item"><span class="n">P-03 服务交付 SOP 设计</span><span class="p">¥28,000</span></div>
+        <div class="scene-item"><span class="n">P-04 标杆案例包装</span><span class="p">¥18,000/个</span></div>
+        <div class="scene-item"><span class="n">P-05 线上活动 / 裂变全案</span><span class="p">¥22–38K</span></div>
+        <div class="scene-item"><span class="n">P-06 产品路线图 + 竞品监测</span><span class="p">¥24,000/年</span></div>
+        <p class="scene-note">把产品发布 / 事件营销从一次性消耗，变成可传播的资产。</p>
       </div>
     </div>
   </div>
-</div>
+</section>
 
-<!-- ════════════ 5. 三档配置 · 定价 · 交付 · 服务细节 ════════════ -->
-<div class="section-header">
-  <span class="ic">💰</span>
-  <h2>三档配置 · 定价 · 交付 · 服务细节</h2>
-  <span class="meta">A 品牌启航 / B 获客引擎 / C 全域托管</span>
-</div>
+<!-- ============ PRICING ============ -->
+<section id="pricing" style="padding-top: 0;">
+  <div class="wrap">
+    <div class="eyebrow"><span class="sec-no">§ 06</span>定价体系</div>
+    <h2 class="section-title">从一顿饭钱，到部门即服务</h2>
+    <p class="section-sub">定价锚点不是「AI 工具值多少钱」，而是「客户自己做这件事要花多少钱」。</p>
 
-<div class="pricing-grid">
-
-  <!-- A 档 -->
-  <div class="plan-card">
-    <div class="plan-hdr">
-      <div class="pl-name">A · 品牌启航</div>
-      <div class="pl-price">¥5,000<small>/月</small></div>
-      <div class="pl-desc">品牌基础搭建 · 内容规范建立 · 持续品牌资产输出</div>
+    <div class="price-grid">
+      <div class="price-card">
+        <div class="pname">次卡 · 破冰漏斗</div>
+        <div class="pnum">¥99</div><div class="punit">起</div>
+        <p class="pdesc">10 次 ¥99 / 50 次 ¥399 / 100 次 ¥699 / 300 次 ¥1799，12 个月有效，余额可抵扣月卡。</p>
+      </div>
+      <div class="price-card">
+        <div class="pname">体验版 · 个人尝鲜</div>
+        <div class="pnum">¥999</div><div class="punit">/月</div>
+        <p class="pdesc">7 天试用，适合个人 / 超级个体跑通第一个 AI 场景。</p>
+      </div>
+      <div class="price-card hot">
+        <div class="pname">标准版 · 主推档</div>
+        <div class="pnum">¥1,999</div><div class="punit">/月</div>
+        <p class="pdesc">超级个体 / 小团队，3 天试用。年付 9 折、季付 95 折。</p>
+      </div>
+      <div class="price-card">
+        <div class="pname">定制版 · 企业团队</div>
+        <div class="pnum">面议</div><div class="punit">&nbsp;</div>
+        <p class="pdesc">企业团队差异化定制，按场景与规模评估报价。</p>
+      </div>
     </div>
-    <div class="plan-body">
-      <div class="pl-section">
-        <div class="pl-s-title">覆盖轴</div>
-        <div class="pl-line"><span class="pl-l">品牌轴</span><span class="pl-check">✓ 基础包</span></div>
-        <div class="pl-line"><span class="pl-l">获客轴</span><span class="pl-dash">— 不含</span></div>
-        <div class="pl-line"><span class="pl-l">产品轴</span><span class="pl-dash">— 不含</span></div>
-      </div>
-      <div class="pl-section">
-        <div class="pl-s-title">交付量 & 节奏</div>
-        <div class="pl-line"><span class="pl-l">每周交付批次</span><span class="pl-r">5-8 件</span></div>
-        <div class="pl-line"><span class="pl-l">交付频率</span><span class="pl-r">每周 1-2 次</span></div>
-        <div class="pl-line"><span class="pl-l">月度复盘</span><span class="pl-r">1 次线上</span></div>
-      </div>
-      <div class="pl-section">
-        <div class="pl-s-title">工作站资源占用</div>
-        <div class="pl-line"><span class="pl-l">主机占用</span><span class="pl-r">1 台</span></div>
-        <div class="pl-line"><span class="pl-l">智能体数量</span><span class="pl-r">4-6 个</span></div>
-        <div class="pl-line"><span class="pl-l">算力占用</span><span class="pl-r">~10%</span></div>
-      </div>
-      <div class="pl-section">
-        <div class="pl-s-title">人力投入</div>
-        <div class="pl-line"><span class="pl-l">FDE 驻场工程师</span><span class="pl-r">0.3 FTE</span></div>
-        <div class="pl-line"><span class="pl-l">OPC 编排师</span><span class="pl-r">0.2 FTE</span></div>
-        <div class="pl-line"><span class="pl-l">方案师</span><span class="pl-r">按次调用</span></div>
-      </div>
-      <div class="pl-section">
-        <div class="pl-s-title">品牌轴交付清单</div>
-        <div class="pl-line"><span class="pl-l">品牌定位矩阵</span><span class="pl-check">✓</span></div>
-        <div class="pl-line"><span class="pl-l">品牌故事线+范文</span><span class="pl-check">✓</span></div>
-        <div class="pl-line"><span class="pl-l">视觉基础规范</span><span class="pl-check">✓</span></div>
-        <div class="pl-line"><span class="pl-l">内容调性指南</span><span class="pl-check">✓</span></div>
-        <div class="pl-line"><span class="pl-l">每周品牌内容日历</span><span class="pl-check">✓</span></div>
-        <div class="pl-line"><span class="pl-l">品牌资产库维护</span><span class="pl-check">✓</span></div>
-        <div class="pl-line"><span class="pl-l">IP孵化/品牌升级</span><span class="pl-dash">+选配</span></div>
-        <div class="pl-line"><span class="pl-l">声量监测</span><span class="pl-dash">+选配</span></div>
-      </div>
-      <div class="pl-note">📌 如果客户已有品牌基础，可直接选B档；A档适合品牌空白或需重新定位的初创/个体。</div>
+
+    <div class="price-note">
+      <strong>深潭 Gen 3 · 部门即服务：</strong>2–5 万/年起，三大场景包（品牌资产包 · 沉淀层 / 获客增长包 · 流量层 / 产品造势包 · 事件层）。
+      计费三层骨架（基座 / 人力 / 场景）× 三种模式（菜单式 / 包年整包 / 建设–运营两段式）。
+      关键：永远不和「雇一个人多少钱」比，和「客户自己做这件事的投入」比——自己做看似更便宜，但做不出来、做不持续。
     </div>
   </div>
+</section>
 
-  <!-- B 档 (推荐) -->
-  <div class="plan-card plan-rec">
-    <div class="plan-hdr" style="background:var(--accent-dim);">
-      <div class="pl-name">B · 获客引擎 <span class="pl-tag">★ 推荐</span></div>
-      <div class="pl-price">¥8,000<small>/月</small></div>
-      <div class="pl-desc">持续获客 · 全渠道内容矩阵 · 管道优化 · 销售赋能</div>
-    </div>
-    <div class="plan-body">
-      <div class="pl-section">
-        <div class="pl-s-title">覆盖轴</div>
-        <div class="pl-line"><span class="pl-l">品牌轴</span><span class="pl-dash">— 不含体系搭建</span></div>
-        <div class="pl-line"><span class="pl-l">获客轴</span><span class="pl-check" style="color:var(--accent);">✓ 基础包</span></div>
-        <div class="pl-line"><span class="pl-l">产品轴</span><span class="pl-dash">— 不含</span></div>
+<!-- ============ CONTACT ============ -->
+<section id="contact" style="padding-top: 0;">
+  <div class="wrap">
+    <div class="cta-band">
+      <h2>从一个具体问题开始</h2>
+      <p class="sub">先做 AI 诊断，找到最小可切入的场景，再谈要不要一起做塘。</p>
+      <div class="cta-contact">
+        <span class="item">联系人 <b>超级助手</b></span>
+        <span class="item">电话 <b>133 2790 8793</b></span>
+        <span class="item">定位 <b>长三角 · 无锡</b></span>
       </div>
-      <div class="pl-section">
-        <div class="pl-s-title">交付量 & 节奏</div>
-        <div class="pl-line"><span class="pl-l">每周交付批次</span><span class="pl-r">15-20 件</span></div>
-        <div class="pl-line"><span class="pl-l">交付频率</span><span class="pl-r">每周 2-3 次</span></div>
-        <div class="pl-line"><span class="pl-l">月度复盘</span><span class="pl-r">2 次线上</span></div>
-      </div>
-      <div class="pl-section">
-        <div class="pl-s-title">工作站资源占用</div>
-        <div class="pl-line"><span class="pl-l">主机占用</span><span class="pl-r">2 台</span></div>
-        <div class="pl-line"><span class="pl-l">智能体数量</span><span class="pl-r">8-12 个</span></div>
-        <div class="pl-line"><span class="pl-l">算力占用</span><span class="pl-r">~30%</span></div>
-      </div>
-      <div class="pl-section">
-        <div class="pl-s-title">人力投入</div>
-        <div class="pl-line"><span class="pl-l">FDE 驻场工程师</span><span class="pl-r">0.5 FTE</span></div>
-        <div class="pl-line"><span class="pl-l">OPC 编排师</span><span class="pl-r">0.3 FTE</span></div>
-        <div class="pl-line"><span class="pl-l">方案师</span><span class="pl-r">按次调用</span></div>
-      </div>
-      <div class="pl-section">
-        <div class="pl-s-title">获客轴交付清单</div>
-        <div class="pl-line"><span class="pl-l">获客管道诊断报告</span><span class="pl-check" style="color:var(--accent);">✓</span></div>
-        <div class="pl-line"><span class="pl-l">公众号 3-5 篇/周</span><span class="pl-check" style="color:var(--accent);">✓</span></div>
-        <div class="pl-line"><span class="pl-l">小红书/短视频 5-10 条/周</span><span class="pl-check" style="color:var(--accent);">✓</span></div>
-        <div class="pl-line"><span class="pl-l">私域朋友圈每日素材</span><span class="pl-check" style="color:var(--accent);">✓</span></div>
-        <div class="pl-line"><span class="pl-l">GEO/SEO 优化 2篇/周</span><span class="pl-check" style="color:var(--accent);">✓</span></div>
-        <div class="pl-line"><span class="pl-l">销售话术库维护</span><span class="pl-check" style="color:var(--accent);">✓</span></div>
-        <div class="pl-line"><span class="pl-l">转化漏斗报表 双周</span><span class="pl-check" style="color:var(--accent);">✓</span></div>
-        <div class="pl-line"><span class="pl-l">KOL/投放/活动营销</span><span class="pl-dash">+选配</span></div>
-      </div>
-      <div class="pl-note">📌 主推档。适合已有品牌基础、需要持续获客的企业/电商/本地服务商。每周15-20件的产出量 = 独立运营岗全职2人的月产出。</div>
     </div>
   </div>
+</section>
 
-  <!-- C 档 -->
-  <div class="plan-card">
-    <div class="plan-hdr">
-      <div class="pl-name">C · 全域托管</div>
-      <div class="pl-price">¥15,000<small>/月</small></div>
-      <div class="pl-desc">品牌·获客·产品 三线全覆盖 · 策略级托管 · 专享交付</div>
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <div class="co">无锡大鲤鱼文化科技发展有限公司</div>
+        <p>成立于 2021 年 8 月，长三角「人工智能 + 电商」数智化转型服务商。建设运营江苏直播电商产业创新服务基地（无锡市级直播电商基地），获认定为国家高新技术企业、科技型中小企业。</p>
+      </div>
+      <div class="foot-lines">
+        <h4>四大业务主线</h4>
+        <ul>
+          <li>AI + 电子商务与新零售</li>
+          <li>AI + 企业服务与经营管理</li>
+          <li>AI + 内容创作与品牌传播</li>
+          <li>AI + 组织协同与流程重构</li>
+        </ul>
+      </div>
+      <div class="foot-lines">
+        <h4>服务链路</h4>
+        <ul>
+          <li>AI 诊断</li>
+          <li>方案规划</li>
+          <li>工具部署</li>
+          <li>流程重构</li>
+          <li>持续运营与结果交付</li>
+        </ul>
+      </div>
     </div>
-    <div class="plan-body">
-      <div class="pl-section">
-        <div class="pl-s-title">覆盖轴</div>
-        <div class="pl-line"><span class="pl-l">品牌轴</span><span class="pl-check" style="color:var(--accent);">✓ 全项</span></div>
-        <div class="pl-line"><span class="pl-l">获客轴</span><span class="pl-check" style="color:var(--accent);">✓ 全项</span></div>
-        <div class="pl-line"><span class="pl-l">产品轴</span><span class="pl-check" style="color:var(--accent);">✓ 全项</span></div>
-      </div>
-      <div class="pl-section">
-        <div class="pl-s-title">交付量 & 节奏</div>
-        <div class="pl-line"><span class="pl-l">每周交付批次</span><span class="pl-r">30+ 件</span></div>
-        <div class="pl-line"><span class="pl-l">交付频率</span><span class="pl-r">每周 3-5 次</span></div>
-        <div class="pl-line"><span class="pl-l">月度复盘</span><span class="pl-r">1 次现场 + 2 次线上</span></div>
-      </div>
-      <div class="pl-section">
-        <div class="pl-s-title">工作站资源占用</div>
-        <div class="pl-line"><span class="pl-l">主机占用</span><span class="pl-r">3-4 台</span></div>
-        <div class="pl-line"><span class="pl-l">智能体数量</span><span class="pl-r">15-20 个</span></div>
-        <div class="pl-line"><span class="pl-l">算力占用</span><span class="pl-r">~60%</span></div>
-      </div>
-      <div class="pl-section">
-        <div class="pl-s-title">人力投入</div>
-        <div class="pl-line"><span class="pl-l">FDE 驻场工程师</span><span class="pl-r">1.0 FTE</span></div>
-        <div class="pl-line"><span class="pl-l">OPC 编排师</span><span class="pl-r">0.5 FTE</span></div>
-        <div class="pl-line"><span class="pl-l">方案师</span><span class="pl-r">0.3 FTE</span></div>
-      </div>
-      <div class="pl-section">
-        <div class="pl-s-title">C档独享权益</div>
-        <div class="pl-line"><span class="pl-l">品牌资产库托管</span><span class="pl-check" style="color:var(--accent);">✓ 含</span></div>
-        <div class="pl-line"><span class="pl-l">IP孵化</span><span class="pl-check" style="color:var(--accent);">✓ 含</span></div>
-        <div class="pl-line"><span class="pl-l">品牌叙事体系</span><span class="pl-check" style="color:var(--accent);">✓ 含</span></div>
-        <div class="pl-line"><span class="pl-l">竞品监测月报</span><span class="pl-check" style="color:var(--accent);">✓ 含</span></div>
-        <div class="pl-line"><span class="pl-l">产品路线图</span><span class="pl-check" style="color:var(--accent);">✓ 含</span></div>
-        <div class="pl-line"><span class="pl-l">产品化升级咨询</span><span class="pl-check" style="color:var(--accent);">✓ 含</span></div>
-        <div class="pl-line"><span class="pl-l">KOL/投放优化</span><span class="pl-check" style="color:var(--accent);">✓ 含</span></div>
-        <div class="pl-line"><span class="pl-l">活动营销全案</span><span class="pl-check" style="color:var(--accent);">✓ 含</span></div>
-        <div class="pl-line"><span class="pl-l">数据所有权</span><span class="pl-check" style="color:var(--accent);">✓ 客户所有</span></div>
-      </div>
-      <div class="pl-note">📌 单人专享服务，工作站相当于客户的「外挂数字部」。适合3-20人团队/已融资企业/转型企业。首月半价含前测诊断。</div>
+    <div class="copyright">
+      大鲤鱼超级工作站 · 共享虾塘 · 深潭 Gen 3（DLY-DEEP-G3）· 水深四代：浅滩 · 跃水 · 深潭 · 锦鲤 · DALIYU BASE © 2026 · <a href="dashboard.html">运营仪表盘（旧版）</a> · <a href="promotion.html">品牌获客产品宣传页</a>
     </div>
   </div>
-</div>
+</footer>
 
-<!-- 容量对照 -->
-<div class="card card-pad" style="margin-top:0;">
-  <div class="card-title">📋 容量对照 · 工作站同时服务多客户时的资源分配</div>
-  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;font-size:12px;">
-    <div style="padding:10px;border-radius:var(--radius-sm);background:rgba(255,255,255,0.02);">
-      <div style="font-weight:600;color:var(--text);margin-bottom:4px;">方案A 满载</div>
-      <div style="color:var(--text-secondary);">同时服务 2-3 家<br>占用 2-3 台主机<br>FDE 0.6-0.9 FTE<br>OPC 0.4-0.6 FTE<br>月收入 ¥10-15K</div>
-    </div>
-    <div style="padding:10px;border-radius:var(--radius-sm);background:var(--accent-dim);">
-      <div style="font-weight:600;color:var(--accent);margin-bottom:4px;">方案B 满载</div>
-      <div style="color:var(--text-secondary);">同时服务 1-2 家<br>占用 2-4 台主机<br>FDE 0.5-1.0 FTE<br>OPC 0.3-0.6 FTE<br>月收入 ¥8-16K</div>
-    </div>
-    <div style="padding:10px;border-radius:var(--radius-sm);background:rgba(255,255,255,0.02);">
-      <div style="font-weight:600;color:var(--coral);margin-bottom:4px;">方案C 满载</div>
-      <div style="color:var(--text-secondary);">单客户专享<br>占用 3-4 台主机<br>FDE 1.0 FTE + 方案师<br>OPC 0.5 FTE<br>月收入 ¥15-30K</div>
-    </div>
-  </div>
-  <div style="margin-top:12px;padding:10px;background:rgba(255,255,255,0.02);border-radius:var(--radius-sm);font-size:12px;color:var(--text-secondary);">
-    满负荷工况（4 台主机满载）：<strong style="color:var(--text);">2-3 个客户 × 月收入 ¥30-60K</strong>（视档位组合）。C档客户占60%以上算力，所以实际满载 ≈ 1个C + 1-2个A，或 2个B + 1个A。
-  </div>
-</div>
-
-<!-- ════════════ 6. 周批次管线 ════════════ -->
-<div class="section-header">
-  <span class="ic">📅</span>
-  <h2>交付节奏 · 周批次生产管线</h2>
-  <span class="meta">每周循环 · 人+智能体协同</span>
-</div>
-
-<div class="card card-pad">
-  <div class="pipeline">
-    <div class="pipe-step" style="background:var(--accent-dim);">
-      <div class="ps-em">📝</div>
-      <div class="ps-title">周一 · 选题</div>
-      <div class="ps-owner">FDE + 方案师</div>
-      <div class="ps-items">周选题+热点追踪<br>策略校准<br>任务分派</div>
-    </div>
-    <div class="pipe-arrow">→</div>
-    <div class="pipe-step" style="background:rgba(255,255,255,0.02);">
-      <div class="ps-em">⚙️</div>
-      <div class="ps-title">周二三 · 生产</div>
-      <div class="ps-owner">智能体 + FDE + OPC</div>
-      <div class="ps-items">智能体批量产出初稿<br>FDE 人工审核+修改<br>OPC 异常处理</div>
-    </div>
-    <div class="pipe-arrow">→</div>
-    <div class="pipe-step" style="background:rgba(255,255,255,0.02);">
-      <div class="ps-em">📬</div>
-      <div class="ps-title">周四 · 交付</div>
-      <div class="ps-owner">FDE → 客户</div>
-      <div class="ps-items">批次打包发出<br>客户反馈收集</div>
-    </div>
-    <div class="pipe-arrow">→</div>
-    <div class="pipe-step" style="background:var(--accent-dim);">
-      <div class="ps-em">📊</div>
-      <div class="ps-title">周五 · 复盘</div>
-      <div class="ps-owner">FDE + 方案师</div>
-      <div class="ps-items">数据汇总<br>下周选题<br>案例素材入库</div>
-    </div>
-  </div>
-</div>
-
-<!-- ═══ FOOTER ═══ -->
-<div class="footer">
-  <span class="brand">大鲤鱼超级工作站 · 共享虾塘</span>
-  <span>深潭 Gen 3</span>
-  <span>DLY-DEEP-G3</span>
-  <span>品牌 · 获客 · 产品 · 全域托管</span>
-</div>
-
-</div>
 </body>
 </html>
