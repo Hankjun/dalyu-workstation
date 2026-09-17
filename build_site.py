@@ -28,11 +28,12 @@ def head(title, prefix=""):
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..600&family=JetBrains+Mono:wght@400;500;600&family=Noto+Serif+SC:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="%sfavicon.png">
 <link rel="stylesheet" href="%sstyles.css">
 </head>
 <body>
 <div class="brandline"></div>
-''' % (title, prefix)
+''' % (title, prefix, prefix)
 
 def nav_html(active_key, prefix="", crumb=None):
     links = []
@@ -50,7 +51,7 @@ def nav_html(active_key, prefix="", crumb=None):
     return '''<nav>
   <div class="nav-inner">
     <a class="wordmark" href="%sindex.html">
-      <img class="logo-img" src="%slogo.png" alt="大鲤鱼 logo">
+      <img class="ip-avatar" src="%ssuper-assistant-avatar.png" alt="大鲤鱼超级助手">
       <div><div class="t1">大鲤鱼超级工作站</div><div class="t2">共享虾塘 · DALIYU</div></div>
     </a>
     <div class="nav-links">%s <span class="gen-badge">深潭 Gen 3</span></div>
@@ -72,7 +73,10 @@ def footer(prefix=""):
   <div class="wrap">
     <div class="foot-grid">
       <div class="foot-brand">
-        <div class="co">无锡大鲤鱼文化科技发展有限公司</div>
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:10px;">
+          <img class="ip-avatar" style="width:44px;height:44px;border-radius:12px;" src="%(p)ssuper-assistant-avatar.png" alt="大鲤鱼超级助手">
+          <div class="co" style="margin-bottom:0;">无锡大鲤鱼文化科技发展有限公司</div>
+        </div>
         <p>长三角「人工智能 + 电商」数智化转型服务商。建设运营江苏直播电商产业创新服务基地（无锡市级直播电商基地），国家高新技术企业、科技型中小企业。</p>
       </div>
       <div class="foot-col"><h4>四大业务主线</h4><ul>
@@ -192,11 +196,21 @@ def build_index():
         ("sitemap", "信息架构图", "sitemap.html", "整站信息架构全景，一眼看懂体系与层级。"),
     ]
     cards = "".join('<a class="portal-card" href="%s"><div class="tag">§ %s</div><h3>%s</h3><p>%s</p><span class="go">进入 →</span></a>' % (u, tag, t, d) for tag, t, u, d in ports)
-    body = page_hero("大鲤鱼超级工作站", "把企划、设计、运营等部门能力，变成可购买、可交付、可复用的服务。")
-    body += '''<section class="block"><div class="wrap">
+    n, _ = nav_html("home")
+    body = n + '''
+<div class="wrap hero-ip">
+  <div class="hero-ip-text">
+    <div class="eyebrow">无锡大鲤鱼文化科技发展有限公司 · DALIYU BASE</div>
+    <h1>大鲤鱼超级工作站<span class="en">Department as a Service — 部门即服务</span></h1>
+    <p class="lede">把企划、设计、运营等部门能力，变成<strong style="color:var(--text);">可购买、可交付、可复用</strong>的服务。私域部署在基地，22+ 智能体编排 + 超级个体 + 交付工程师协同。</p>
+    <p class="tagline">让 AI 真正长在创业者的日常里。</p>
+  </div>
+  <div class="hero-ip-img"><img src="super-assistant.png" alt="大鲤鱼超级助手 IP 形象"></div>
+</div>'''
+    body += '''<section class="block" style="padding-top:0;"><div class="wrap">
 <div class="eyebrow"><span class="sec-no">§</span>部门即服务 · 深潭 Gen 3</div>
-<h2 class="h">让 AI 真正长在创业者的日常里</h2>
-<p class="sub">私域部署在基地，22+ 智能体编排 + 超级个体 + 交付工程师协同，为中小企业做「小快轻准」的 AI 项目落地。</p>
+<h2 class="h">小快轻准的 AI 项目运营</h2>
+<p class="sub">为中小企业做「小快轻准」的 AI 项目落地，从一顿饭钱的次卡，到部门即服务的整包。</p>
 %s
 <div class="grid g4" style="margin-top:40px;">%s</div>
 </div></section>''' % (kpi_row(), cards)
@@ -417,6 +431,7 @@ def build_sitemap():
     body = page_hero("信息架构图", "整站信息架构全景——三级结构，每个节点都可点击进入对应页面。", active="home")
     body += '''<section class="block"><div class="wrap">
 <div class="ia-root">
+<img class="ip-inline" src="super-assistant.png" alt="大鲤鱼超级助手">
 %s
 <div class="ia-connector-v"></div>
 <div class="ia-level">%s</div>
